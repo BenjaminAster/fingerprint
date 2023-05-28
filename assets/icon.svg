@@ -1,0 +1,116 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+	<style>
+		:root {
+			color-scheme: dark light;
+			--fill-color: white;
+		}
+
+		@media (prefers-color-scheme: light) {
+			:root {
+				--fill-color: black;
+			}
+		}
+
+		.stroke {
+			stroke: var(--fill-color);
+			stroke-width: 30;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			fill: none;
+		}
+	</style>
+
+	<path class="stroke" d="
+		M 15 285
+		v -120
+	" />
+
+	<path class="stroke" d="
+		M 15 105
+		v -60
+		a 30 30 0 0 1 30 -30
+		h 60
+	" />
+
+	<path class="stroke" d="
+		M 165 15
+		h 90
+	" />
+
+	<path class="stroke" d="
+		M 315 15
+		h 120
+		a 30 30 0 0 1 30 30
+		v 180
+	" />
+
+	<path class="stroke" d="
+		M 465 285
+		v 30
+	" />
+
+	<path class="stroke" d="
+		M 465 375
+		v 60
+		a 30 30 0 0 1 -30 30
+		h -60
+	" />
+
+
+	<path class="stroke" d="
+		M 15 345
+		h 30
+		a 30 30 0 0 0 30 -30
+		v -90
+	" />
+
+	<path class="stroke" d="
+		M 75 165
+		v -60
+		a 30 30 0 0 1 30 -30
+		h 90
+	" />
+
+	<path class="stroke" d="
+		M 255 75
+		h 120
+		a 30 30 0 0 1 30 30
+		v 180
+	" />
+
+	<path class="stroke" d="
+		M 405 345
+		v 30
+		a 30 30 0 0 1 -30 30
+	" />
+
+
+	<path class="stroke" d="
+		M 15 405
+		h 90
+		a 30 30 0 0 0 30 -30
+		v -210
+		a 30 30 0 0 1 30 -30
+		h 150
+		a 30 30 0 0 1 30 30
+		v 165
+		a 15 15 0 0 1 -15 15
+		a 15 15 0 0 0 -15 15
+		v 105
+	" />
+
+
+	<path class="stroke" d="
+		M 15 465
+		h 150
+		a 30 30 0 0 0 30 -30
+		v -210
+		a 30 30 0 0 1 30 -30
+		h 30
+		a 30 30 0 0 1 30 30
+		v 45
+		a 15 15 0 0 1 -15 15
+		a 15 15 0 0 0 -15 15
+		v 165
+	" />
+</svg>

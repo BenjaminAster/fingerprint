@@ -1,0 +1,95 @@
+
+:root {
+	font-family: system-ui, sans-serif;
+	color-scheme: dark;
+	--key-color: mediumSpringGreen;
+	-webkit-text-size-adjust: none;
+	text-size-adjust: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		color-scheme: light;
+		--key-color: green;
+	}
+}
+
+body {
+	margin: 0;
+	min-block-size: 100dvb;
+	box-sizing: border-box;
+}
+
+main {
+	padding: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 600;
+}
+
+dl {
+	margin: 0;
+	padding: 0;
+}
+
+ul, ol {
+	margin: 0;
+	padding: 0;
+}
+
+dt {
+	font-weight: 500;
+	/* text-decoration: underline; */
+	font-style: italic;
+	/* opacity: .8; */
+	color: var(--key-color);
+}
+
+dd {
+	margin-inline-start: 0;
+}
+
+dd	> :is(dl, ul, ol) {
+	inline-size: 100%;
+	padding-inline-start: 2em;
+	box-sizing: border-box;
+}
+
+dl > div > :is(dt, dd) {
+	display: inline;
+}
+
+.orientation-and-motion > div {
+	--center-value: 0;
+	--calculated-width: calc(((var(--value) - var(--center-value)) / var(--span) + 1) * 50%);
+	position: relative;
+	padding: 2px;
+}
+
+.orientation-and-motion > div::before {
+	content: "";
+	display: block;
+	background-color: #88f8;
+	border: 1px solid #88ff;
+	box-sizing: border-box;
+	position: absolute;
+	z-index: -1;
+	inset-block: 1px;
+	inset-inline-start: 0;
+	inline-size: var(--calculated-width);
+	max-inline-size: 100%;
+}
+
+.orientation-and-motion > div.rotation {
+	--span: 180;
+}
+
+.orientation-and-motion > div.rotation:is(#absolute-device-orientation-alpha, #device-orientation-alpha) {
+	--center-value: 180;
+}
+
+.orientation-and-motion > div.acceleration {
+	--span: 20;
+}

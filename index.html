@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="robots" content="all" />
+	<meta name="description" content="A website that shows you fingerprinting vectors of your browser." />
+
+	<!-- <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" /> -->
+	<!-- <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" /> -->
+
+	<title>Fingerprint</title>
+	<link rel="manifest" href="./app.webmanifest" />
+
+	<link rel="icon" href="./assets/icon.svg" type="image/svg+xml" sizes="512x512" />
+	<link rel="icon" href="./assets/icon.png" type="image/png" sizes="any" />
+
+	<link rel="stylesheet" href="./style.css" />
+
+	<script type="module" src="./main.js"></script>
+</head>
+
+<body>
+	<noscript>
+		Please enable JavaScript to view this site.
+		<hr />
+	</noscript>
+
+	<main>
+		<h1>Fingerprint</h1>
+		<p>See fingerprinting vectors of your browser.</p>
+		<section>
+			<h2>Browser</h2>
+			<dl>
+				<div>
+					<dt>User-Agent string:</dt>
+					<dd id="user-agent-string"></dd>
+				</div>
+
+				<div>
+					<dt>Browser engine (feature-detected):</dt>
+					<dd id="browser-engine"></dd>
+				</div>
+
+				<div>
+					<dt>Browser (feature-detected):</dt>
+					<dd id="browser"></dd>
+				</div>
+
+				<div>
+					<dt>Brands:</dt>
+					<dd>
+						<ul id="client-hint-brands">
+							<template>
+								<li>
+									<dl>
+										<div>
+											<dt>Brand:</dt>
+											<dd class="brand"></dd>
+										</div>
+										<div>
+											<dt>Version:</dt>
+											<dd class="version"></dd>
+										</div>
+									</dl>
+								</li>
+							</template>
+						</ul>
+					</dd>
+				</div>
+
+				<div>
+					<dt>Full version list:</dt>
+					<dd>
+						<ul id="client-hint-full-version-list">
+							<template>
+								<li>
+									<dl>
+										<div>
+											<dt>Brand:</dt>
+											<dd class="brand"></dd>
+										</div>
+										<div>
+											<dt>Version:</dt>
+											<dd class="version"></dd>
+										</div>
+									</dl>
+								</li>
+							</template>
+						</ul>
+					</dd>
+				</div>
+
+				<div>
+					<dt>User-Agent full version:</dt>
+					<dd id="client-hint-ua-full-version"></dd>
+				</div>
+
+				<div>
+					<dt>Plugins:</dt>
+					<dd>
+						<ul id="plugins">
+							<template>
+								<li>
+									<dl>
+										<div>
+											<dt>Name:</dt>
+											<dd class="name"></dd>
+										</div>
+										<div>
+											<dt>File name:</dt>
+											<dd class="file-name"></dd>
+										</div>
+										<div>
+											<dt>Description:</dt>
+											<dd class="description"></dd>
+										</div>
+									</dl>
+								</li>
+							</template>
+						</ul>
+					</dd>
+				</div>
+
+				<div>
+					<dt>MIME types:</dt>
+					<dd>
+						<ul id="mime-types">
+							<template>
+								<li>
+									<dl>
+										<div>
+											<dt>Description:</dt>
+											<dd class="description"></dd>
+										</div>
+										<div>
+											<dt>Suffixes:</dt>
+											<dd class="suffixes"></dd>
+										</div>
+										<div>
+											<dt>Type:</dt>
+											<dd class="type"></dd>
+										</div>
+									</dl>
+								</li>
+							</template>
+						</ul>
+					</dd>
+				</div>
+
+				<div>
+					<dt>JS heap size limit:</dt>
+					<dd id="js-heap-size-limit"></dd>
+				</div>
+
+				<div>
+					<dt>Total allocated JS heap size:</dt>
+					<dd id="total-js-heap-size"></dd>
+				</div>
+			</dl>
+		</section>
+
+		<section>
+			<h2>Operating system & hardware:</h2>
+			<dl>
+				<div>
+					<dt>Platform:</dt>
+					<dd id="platform"></dd>
+				</div>
+
+				<div>
+					<dt>Logical processors:</dt>
+					<dd id="hardware-concurrency"></dd>
+				</div>
+
+				<div>
+					<dt>Device memory:</dt>
+					<dd id="device-memory"></dd>
+				</div>
+
+				<div>
+					<dt>Graphics card:</dt>
+					<dd id="graphics-card"></dd>
+				</div>
+
+				<div>
+					<dt>Graphics card vendor:</dt>
+					<dd id="graphics-card-vendor"></dd>
+				</div>
+
+				<div>
+					<dt>Architecture:</dt>
+					<dd id="client-hint-architecture"></dd>
+				</div>
+
+				<div>
+					<dt>Bitness:</dt>
+					<dd id="client-hint-bitness"></dd>
+				</div>
+
+				<div>
+					<dt>Mobile:</dt>
+					<dd id="client-hint-mobile"></dd>
+				</div>
+
+				<div>
+					<dt>Model:</dt>
+					<dd id="client-hint-model"></dd>
+				</div>
+
+				<div>
+					<dt>Operating system:</dt>
+					<dd id="client-hint-platform"></dd>
+				</div>
+
+				<div>
+					<dt>Operating system version:</dt>
+					<dd id="client-hint-platform-version"></dd>
+				</div>
+
+				<div>
+					<dt>Windows-on-Windows 64-bit (WoW64) capable:</dt>
+					<dd id="client-hint-wow64"></dd>
+				</div>
+
+				<div>
+					<dt>Endianness:</dt>
+					<dd id="endianness"></dd>
+				</div>
+
+				<div>
+					<dt>Bluetooth available:</dt>
+					<dd id="bluetooth-availability"></dd>
+				</div>
+
+				<div>
+					<dt>Virtual Reality supported:</dt>
+					<dd id="immersive-vr-supported"></dd>
+				</div>
+
+				<div>
+					<dt>Augmented Reality supported:</dt>
+					<dd id="immersive-ar-supported"></dd>
+				</div>
+
+				<div>
+					<dt>Cameras:</dt>
+					<dd id="cameras"></dd>
+				</div>
+
+				<div>
+					<dt>Microphones:</dt>
+					<dd id="microphones"></dd>
+				</div>
+
+				<div>
+					<dt>Speakers:</dt>
+					<dd id="speakers"></dd>
+				</div>
+
+				<div>
+					<dt>WebGPU: architecture:</dt>
+					<dd id="webgpu-architecture"></dd>
+				</div>
+
+				<div>
+					<dt>WebGPU: description:</dt>
+					<dd id="webgpu-description"></dd>
+				</div>
+
+				<div>
+					<dt>WebGPU: device:</dt>
+					<dd id="webgpu-device"></dd>
+				</div>
+
+				<div>
+					<dt>WebGPU: driver:</dt>
+					<dd id="webgpu-driver"></dd>
+				</div>
+
+				<div>
+					<dt>WebGPU: vendor:</dt>
+					<dd id="webgpu-vendor"></dd>
+				</div>
+			</dl>
+		</section>
+
+		<section>
+			<h2>User preferences</h2>
+			<dl>
+				<div>
+					<dt>Primary language:</dt>
+					<dd id="language"></dd>
+				</div>
+
+				<div>
+					<dt>Languages:</dt>
+					<dd id="languages"></dd>
+				</div>
+
+				<div>
+					<dt>Date & time locale:</dt>
+					<dd id="date-time-locale"></dd>
+				</div>
+
+				<div>
+					<dt>Calendar:</dt>
+					<dd id="calendar"></dd>
+				</div>
+
+				<div>
+					<dt>Time zone:</dt>
+					<dd id="time-zone"></dd>
+				</div>
+
+				<div>
+					<dt>Precise date & time:</dt>
+					<dd id="date-time"></dd>
+				</div>
+
+				<div>
+					<dt>Do not track:</dt>
+					<dd id="do-not-track"></dd>
+				</div>
+
+				<div>
+					<dt>Do not sell user data (Global Privacy Control):</dt>
+					<dd id="global-privacy-control"></dd>
+				</div>
+
+				<div>
+					<dt>Dark theme:</dt>
+					<dd id="dark-theme"></dd>
+				</div>
+
+				<div>
+					<dt>Prefers contrast:</dt>
+					<dd id="prefers-contrast"></dd>
+				</div>
+
+				<div>
+					<dt>Prefers reduced data:</dt>
+					<dd id="prefers-reduced-data"></dd>
+				</div>
+
+				<div>
+					<dt>Prefers reduced motion:</dt>
+					<dd id="prefers-reduced-motion"></dd>
+				</div>
+
+				<div>
+					<dt>Prefers reduced transparency:</dt>
+					<dd id="prefers-reduced-transparency"></dd>
+				</div>
+
+				<div>
+					<dt>Forced colors active:</dt>
+					<dd id="forced-colors"></dd>
+				</div>
+
+				<div>
+					<dt>Inverted colors:</dt>
+					<dd id="inverted-colors"></dd>
+				</div>
+
+				<div>
+					<dt>Data saver enabled:</dt>
+					<dd id="save-data"></dd>
+				</div>
+
+				<div>
+					<dt>Cookies enabled:</dt>
+					<dd id="cookie-enabled"></dd>
+				</div>
+
+				<div>
+					<dt>Private browsing ("Incognito") mode:</dt>
+					<dd id="incognito"></dd>
+				</div>
+
+				<div>
+					<dt>Desktop site mode:</dt>
+					<dd id="desktop-site-enabled"></dd>
+				</div>
+
+				<div>
+					<dt>Brave fingerprinting protection:</dt>
+					<dd id="brave-fingerprinting-protection"></dd>
+				</div>
+
+				<div>
+					<dt>Keyboard layout map:</dt>
+					<dd>
+						<dl id="keyboard-layout-map">
+							<template>
+								<div>
+									<dt><span class="code"></span>:</dt>
+									<dd class="key"></dd>
+								</div>
+							</template>
+						</dl>
+					</dd>
+				</div>
+
+				<div>
+					<dt>Installed text-to-speech voices:</dt>
+					<dd>
+						<ul id="speech-synthesis-voices">
+							<template>
+								<li itemprop="name"></li>
+							</template>
+						</ul>
+					</dd>
+				</div>
+			</dl>
+		</section>
+
+		<section>
+			<h2>Screen & window</h2>
+			<dl>
+				<div>
+					<dt>High dynamic range:</dt>
+					<dd id="high-dynamic-range"></dd>
+				</div>
+
+				<div>
+					<dt>Device pixel ratio:</dt>
+					<dd id="device-pixel-ratio"></dd>
+				</div>
+
+				<div>
+					<dt>Frame rate:</dt>
+					<dd id="frame-rate"></dd>
+				</div>
+
+				<div>
+					<dt>Maximum touch points:</dt>
+					<dd id="max-touch-points"></dd>
+				</div>
+
+				<div>
+					<dt>Color depth:</dt>
+					<dd id="screen-color-depth"></dd>
+				</div>
+
+				<div>
+					<dt>Pixel depth:</dt>
+					<dd id="screen-pixel-depth"></dd>
+				</div>
+
+				<div>
+					<dt>Color gamut:</dt>
+					<dd id="color-gamut"></dd>
+				</div>
+
+				<div>
+					<dt>Extended screen:</dt>
+					<dd id="screen-is-extended"></dd>
+				</div>
+
+				<div>
+					<dt>Fullscreen enabled:</dt>
+					<dd id="fullscreen-enabled"></dd>
+				</div>
+
+				<div>
+					<dt>Screen orientation:</dt>
+					<dd id="screen-orientation"></dd>
+				</div>
+
+				<div>
+					<dt>Slow display update (e.g. E-ink):</dt>
+					<dd id="slow-display-update"></dd>
+				</div>
+
+				<div>
+					<dt>Inner width:</dt>
+					<dd id="inner-width"></dd>
+				</div>
+
+				<div>
+					<dt>Inner height:</dt>
+					<dd id="inner-height"></dd>
+				</div>
+
+				<div>
+					<dt>Outer width:</dt>
+					<dd id="outer-width"></dd>
+				</div>
+
+				<div>
+					<dt>Outer height:</dt>
+					<dd id="outer-height"></dd>
+				</div>
+
+				<div>
+					<dt>Available width:</dt>
+					<dd id="screen-available-width"></dd>
+				</div>
+
+				<div>
+					<dt>Available height:</dt>
+					<dd id="screen-available-height"></dd>
+				</div>
+
+				<div>
+					<dt>Available space left:</dt>
+					<dd id="screen-available-left"></dd>
+				</div>
+
+				<div>
+					<dt>Available space above:</dt>
+					<dd id="screen-available-top"></dd>
+				</div>
+
+				<div>
+					<dt>Screen width:</dt>
+					<dd id="screen-width"></dd>
+				</div>
+
+				<div>
+					<dt>Screen height:</dt>
+					<dd id="screen-height"></dd>
+				</div>
+
+				<div>
+					<dt>Screen X:</dt>
+					<dd id="screen-x"></dd>
+				</div>
+
+				<div>
+					<dt>Screen Y:</dt>
+					<dd id="screen-y"></dd>
+				</div>
+
+				<div>
+					<dt>Viewport width:</dt>
+					<dd id="visual-viewport-width"></dd>
+				</div>
+
+				<div>
+					<dt>Viewport height:</dt>
+					<dd id="visual-viewport-height"></dd>
+				</div>
+
+				<div>
+					<dt>Viewport offset left:</dt>
+					<dd id="visual-viewport-offset-left"></dd>
+				</div>
+
+				<div>
+					<dt>Viewport offset top:</dt>
+					<dd id="visual-viewport-offset-top"></dd>
+				</div>
+
+				<div>
+					<dt>Viewport scale:</dt>
+					<dd id="visual-viewport-scale"></dd>
+				</div>
+			</dl>
+		</section>
+
+		<section>
+			<h2>User journey</h2>
+
+			<dl>
+				<div>
+					<dt>Site that linked to this page:</dt>
+					<dd id="document-referrer"></dd>
+				</div>
+
+				<div>
+					<dt>Entries in tab history:</dt>
+					<dd id="history-length"></dd>
+				</div>
+
+				<div>
+					<dt>Site loading type:</dt>
+					<dd id="navigation-type"></dd>
+				</div>
+			</dl>
+		</section>
+
+		<section>
+			<h2>Network</h2>
+
+			<dl>
+				<div>
+					<dt>Online:</dt>
+					<dd id="online"></dd>
+				</div>
+
+				<div>
+					<dt>Public IPv4 address:</dt>
+					<dd id="ipv4-address"></dd>
+				</div>
+
+				<div>
+					<dt>Public IPv6 address:</dt>
+					<dd id="ipv6-address"></dd>
+				</div>
+
+				<div>
+					<dt>Country:</dt>
+					<dd id="ip-country"></dd>
+				</div>
+
+				<div>
+					<dt>Region:</dt>
+					<dd id="ip-region"></dd>
+				</div>
+
+				<div>
+					<dt>City:</dt>
+					<dd id="ip-postal-code-and-city"></dd>
+				</div>
+
+				<div>
+					<dt>Latitude:</dt>
+					<dd id="ip-latitude"></dd>
+				</div>
+
+				<div>
+					<dt>Longitude:</dt>
+					<dd id="ip-longitude"></dd>
+				</div>
+
+				<div>
+					<dt>Internet service provider:</dt>
+					<dd id="ip-isp"></dd>
+				</div>
+
+				<div>
+					<dt>Connection type:</dt>
+					<dd id="network-connection-type"></dd>
+				</div>
+
+				<div>
+					<dt>Effective network type:</dt>
+					<dd id="network-effective-type"></dd>
+				</div>
+
+				<div>
+					<dt>Network downlink:</dt>
+					<dd id="network-downlink"></dd>
+				</div>
+
+				<div>
+					<dt>Maximum network downlink:</dt>
+					<dd id="network-downlink-max"></dd>
+				</div>
+
+				<div>
+					<dt>Network round-trip delay:</dt>
+					<dd id="network-rtt"></dd>
+				</div>
+			</dl>
+		</section>
+
+		<section>
+			<h2>Device state</h2>
+
+			<dl>
+				<div>
+					<dt>Battery level:</dt>
+					<dd id="battery-level"></dd>
+				</div>
+
+				<div>
+					<dt>Device is charging:</dt>
+					<dd id="charging"></dd>
+				</div>
+
+				<div>
+					<dt>Remaining charging time:</dt>
+					<dd id="charging-time"></dd>
+				</div>
+
+				<div>
+					<dt>Remainging discharging time:</dt>
+					<dd id="discharging-time"></dd>
+				</div>
+
+				<div>
+					<dt>Web-usable storage quota (estimate):</dt>
+					<dd id="storage-quota-estimate"></dd>
+				</div>
+
+				<div>
+					<dt>Ambient light:</dt>
+					<dd id="ambient-light"></dd>
+				</div>
+
+				<div>
+					<dt>Thermal compute pressure:</dt>
+					<dd id="compute-pressure-thermal"></dd>
+				</div>
+
+				<div>
+					<dt>CPU pressure:</dt>
+					<dd id="compute-pressure-cpu"></dd>
+				</div>
+			</dl>
+
+			<button id="orientation-sensor-permission">request orientation sensor permission</button> <br />
+			<button id="motion-sensor-permission">request motion sensor permission</button>
+
+			<dl>
+				<div>
+					<dt>Absolute device orientation:</dt>
+					<dd>
+						<dl class="orientation-and-motion">
+							<div class="rotation" id="absolute-device-orientation-alpha">
+								<dt>alpha:</dt>
+								<dd></dd>
+							</div>
+							<div class="rotation" id="absolute-device-orientation-beta">
+								<dt>beta:</dt>
+								<dd></dd>
+							</div>
+							<div class="rotation" id="absolute-device-orientation-gamma">
+								<dt>gamma:</dt>
+								<dd></dd>
+							</div>
+						</dl>
+					</dd>
+				</div>
+				<div>
+					<dt>Relative device orientation:</dt>
+					<dd>
+						<dl class="orientation-and-motion">
+							<div class="rotation" id="device-orientation-alpha">
+								<dt>alpha:</dt>
+								<dd></dd>
+							</div>
+							<div class="rotation" id="device-orientation-beta">
+								<dt>beta:</dt>
+								<dd></dd>
+							</div>
+							<div class="rotation" id="device-orientation-gamma">
+								<dt>gamma:</dt>
+								<dd></dd>
+							</div>
+						</dl>
+					</dd>
+				</div>
+				<div>
+					<dt>Rotation rate:</dt>
+					<dd>
+						<dl class="orientation-and-motion">
+							<div class="rotation" id="rotation-rate-alpha">
+								<dt>alpha:</dt>
+								<dd></dd>
+							</div>
+							<div class="rotation" id="rotation-rate-beta">
+								<dt>beta:</dt>
+								<dd></dd>
+							</div>
+							<div class="rotation" id="rotation-rate-gamma">
+								<dt>gamma:</dt>
+								<dd></dd>
+							</div>
+						</dl>
+					</dd>
+				</div>
+				<div>
+					<dt>Acceleration:</dt>
+					<dd>
+						<dl class="orientation-and-motion">
+							<div class="acceleration" id="acceleration-x">
+								<dt>x:</dt>
+								<dd></dd>
+							</div>
+							<div class="acceleration" id="acceleration-y">
+								<dt>y:</dt>
+								<dd></dd>
+							</div>
+							<div class="acceleration" id="acceleration-z">
+								<dt>z:</dt>
+								<dd></dd>
+							</div>
+						</dl>
+					</dd>
+				</div>
+				<div>
+					<dt>Acceleration including gravity:</dt>
+					<dd>
+						<dl class="orientation-and-motion">
+							<div class="acceleration" id="acceleration-including-gravity-x">
+								<dt>x:</dt>
+								<dd></dd>
+							</div>
+							<div class="acceleration" id="acceleration-including-gravity-y">
+								<dt>y:</dt>
+								<dd></dd>
+							</div>
+							<div class="acceleration" id="acceleration-including-gravity-z">
+								<dt>z:</dt>
+								<dd></dd>
+							</div>
+						</dl>
+					</dd>
+				</div>
+			</dl>
+		</section>
+	</main>
+</body>
+
+</html>
