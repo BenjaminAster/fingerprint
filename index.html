@@ -18,15 +18,14 @@
 
 	<link rel="stylesheet" href="./style.css" />
 
+	<noscript>
+		<link rel="stylesheet" href="./javascript-disabled.css" />
+	</noscript>
+
 	<script type="module" src="./main.js"></script>
 </head>
 
 <body>
-	<noscript>
-		Please enable JavaScript to view this site.
-		<hr />
-	</noscript>
-
 	<main>
 		<h1>Fingerprint</h1>
 		<p>See fingerprinting vectors of your browser.</p>
@@ -290,6 +289,14 @@
 			<h2>User preferences</h2>
 			<dl>
 				<div>
+					<dt>JavaScript enabled:</dt>
+					<dd>
+						<span id="javascript-enabled"></span>
+						<span id="javascript-enabled-false" hidden>no</span>
+					</dd>
+				</div>
+
+				<div>
 					<dt>Primary language:</dt>
 					<dd id="language"></dd>
 				</div>
@@ -332,6 +339,11 @@
 				<div>
 					<dt>Dark theme:</dt>
 					<dd id="dark-theme"></dd>
+				</div>
+
+				<div>
+					<dt>Accent color:</dt>
+					<dd id="accent-color"></dd>
 				</div>
 
 				<div>
@@ -387,6 +399,14 @@
 				<div>
 					<dt>Brave fingerprinting protection:</dt>
 					<dd id="brave-fingerprinting-protection"></dd>
+				</div>
+
+				<div>
+					<dt>Tor/Mullvad security level:</dt>
+					<dd>
+						<span id="tor-security-level"></span>
+						<span id="tor-security-level-safest" hidden>safest</span>
+					</dd>
 				</div>
 
 				<div>
@@ -693,13 +713,34 @@
 				</div>
 
 				<div>
+					<dt>CPU pressure:</dt>
+					<dd id="compute-pressure-cpu"></dd>
+				</div>
+
+				<div>
 					<dt>Thermal compute pressure:</dt>
 					<dd id="compute-pressure-thermal"></dd>
 				</div>
 
 				<div>
-					<dt>CPU pressure:</dt>
-					<dd id="compute-pressure-cpu"></dd>
+					<dt>Recursion call stack size:</dt>
+					<dd id="recursion-stack-size"></dd>
+				</div>
+
+				<div>
+					<dt>Geolocation:</dt>
+					<dd>
+						<span id="geolocation-no-permission">
+							<button>Request permission</button>
+						</span>
+						<span id="geolocation-has-permission" hidden>
+							<span id="geolocation"></span>
+							&ndash;
+							view on
+							<a href="#" id="geolocation-google-maps-link">Google Maps</a>,
+							<a href="#" id="geolocation-qwant-maps-link">Qwant Maps</a>
+						</span>
+					</dd>
 				</div>
 			</dl>
 
@@ -708,22 +749,10 @@
 
 			<dl>
 				<div>
-					<dt>Absolute device orientation:</dt>
-					<dd>
-						<dl class="orientation-and-motion">
-							<div class="rotation" id="absolute-device-orientation-alpha">
-								<dt>alpha:</dt>
-								<dd></dd>
-							</div>
-							<div class="rotation" id="absolute-device-orientation-beta">
-								<dt>beta:</dt>
-								<dd></dd>
-							</div>
-							<div class="rotation" id="absolute-device-orientation-gamma">
-								<dt>gamma:</dt>
-								<dd></dd>
-							</div>
-						</dl>
+					<dt>Compass:</dt>
+					<dd class="compass-container">
+						<div id="compass"></div>
+						<div id="compass-degrees"></div>
 					</dd>
 				</div>
 				<div>
@@ -746,7 +775,7 @@
 					</dd>
 				</div>
 				<div>
-					<dt>Rotation rate:</dt>
+					<dt>Rotation rate (deg/s):</dt>
 					<dd>
 						<dl class="orientation-and-motion">
 							<div class="rotation" id="rotation-rate-alpha">
@@ -765,7 +794,7 @@
 					</dd>
 				</div>
 				<div>
-					<dt>Acceleration:</dt>
+					<dt>Acceleration (m/s²):</dt>
 					<dd>
 						<dl class="orientation-and-motion">
 							<div class="acceleration" id="acceleration-x">
@@ -784,7 +813,7 @@
 					</dd>
 				</div>
 				<div>
-					<dt>Acceleration including gravity:</dt>
+					<dt>Acceleration including gravity (m/s²):</dt>
 					<dd>
 						<dl class="orientation-and-motion">
 							<div class="acceleration" id="acceleration-including-gravity-x">

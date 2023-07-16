@@ -1,0 +1,243 @@
+Agency FB
+Alef
+Algerian
+Amiri
+Amiri Quran
+Arial
+Arial Rounded MT
+Arial Unicode MS
+Bahnschrift
+Baskerville Old Face
+Bauhaus 93
+Bell MT
+Berlin Sans FB
+Bernard MT
+Blackadder ITC
+Bodoni MT
+Bodoni MT Poster
+Book Antiqua
+Bookman Old Style
+Bookshelf Symbol 7
+Bradley Hand ITC
+Britannic
+Broadway
+Brush Script MT
+Caladea
+Calibri
+Californian FB
+Calisto MT
+Cambria
+Cambria Math
+Candara
+Carlito
+Cascadia Code
+Cascadia Mono
+Castellar
+Centaur
+Century
+Century Gothic
+Century Schoolbook
+Chiller
+Colonna MT
+Comic Sans MS
+Consolas
+Constantia
+Cooper
+Copperplate Gothic
+Corbel
+Courier New
+Curlz MT
+David CLM
+David CLM BoldItalic
+David CLM MediumItalic
+David Libre
+DejaVu Math TeX Gyre
+DejaVu Sans
+DejaVu Sans Mono
+DejaVu Serif
+Dubai
+Ebrima
+Edwardian Script ITC
+Elephant
+EmojiOne Color
+Engravers MT
+Eras ITC
+Felix Titling
+Footlight MT
+Forte
+Frank Ruehl CLM
+Frank Ruehl CLM BoldOblique
+Frank Ruehl CLM MediumOblique
+Frank Ruhl Hofshi
+Franklin Gothic Book
+Franklin Gothic
+Freestyle Script
+French Script MT
+Gabriola
+Gadugi
+Garamond
+Gentium Basic
+Gentium Book Basic
+Georgia
+Gigi
+Gill Sans
+Gill Sans MT
+Gloucester MT
+Goudy Old Style
+Goudy Stout
+Haettenschweiler
+Harlow Solid
+Harrington
+High Tower Text
+HoloLens MDL2 Assets
+Impact
+Imprint MT Shadow
+Informal Roman
+Ink Free
+Javanese Text
+Jokerman
+Juice ITC
+KacstBook
+KacstOffice
+Kristen ITC
+Kunstler Script
+Wide Latin
+Leelawadee UI
+Liberation Mono
+Liberation Sans
+Liberation Serif
+Linux Biolinum G
+Linux Libertine Display G
+Linux Libertine G
+Lucida Bright
+Lucida Calligraphy
+Lucida Console
+Lucida Fax
+Lucida Handwriting
+Lucida Sans
+Lucida Sans Typewriter
+Lucida Sans Unicode
+MS Gothic
+MS PGothic
+MS UI Gothic
+MS Outlook
+MS Reference Sans Serif
+MS Reference Specialty
+MT Extra
+MV Boli
+Magneto
+Maiandra GD
+Malgun Gothic
+Marlett
+Matura MT Script Capitals
+Microsoft Himalaya
+Microsoft Yi Baiti
+Microsoft JhengHei
+Microsoft JhengHei UI
+Microsoft New Tai Lue
+Microsoft PhagsPa
+Microsoft Sans Serif
+Microsoft Tai Le
+Microsoft YaHei
+Microsoft YaHei UI
+MingLiU_HKSCS-ExtB
+MingLiU-ExtB
+Miriam CLM
+Miriam Libre
+Miriam Mono CLM
+Miriam Mono CLM BoldOblique
+Mistral
+Modern No. 20
+Mongolian Baiti
+Monotype Corsiva
+Myanmar Text
+NSimSun
+Nachlieli CLM
+Nachlieli CLM BoldOblique
+Nachlieli CLM LightOblique
+Niagara Engraved
+Niagara Solid
+Nirmala UI
+Noto Kufi Arabic
+Noto Mono
+Noto Naskh Arabic
+Noto Naskh Arabic UI
+Noto Sans
+Noto Sans Arabic
+Noto Sans Arabic UI
+Noto Sans Armenian
+Noto Sans Georgian
+Noto Sans Hebrew
+Noto Sans Lao
+Noto Sans Lisu
+Noto Serif
+Noto Serif Armenian
+Noto Serif Georgian
+Noto Serif Hebrew
+Noto Serif Lao
+OCR A
+Old English Text MT
+Onyx
+OpenSymbol
+PMingLiU-ExtB
+Palace Script MT
+Palatino Linotype
+Papyrus
+Parchment
+Perpetua
+Perpetua Titling MT
+Playbill
+Poor Richard
+Pristina
+Rage
+Ravie
+Reem Kufi
+Roboto
+Roboto Mono
+Rockwell
+Rubik
+Scheherazade
+Script MT
+Segoe UI Variable Display
+Segoe UI Variable Small
+Segoe UI Variable Text
+Segoe Fluent Icons
+Segoe MDL2 Assets
+Segoe Print
+Segoe Script
+Segoe UI
+Segoe UI Emoji
+Segoe UI Historic
+Segoe UI Symbol
+Showcard Gothic
+SimSun
+SimSun-ExtB
+Sitka Banner
+Sitka Display
+Sitka Heading
+Sitka Small
+Sitka Subheading
+Sitka Text
+Snap ITC
+Source Code Pro
+Source Sans Pro
+Source Serif Pro
+Stencil
+Sylfaen
+Symbol
+Tahoma
+Teko
+Tempus Sans ITC
+Times New Roman
+Trebuchet MS
+Tw Cen MT
+Verdana
+Viner Hand ITC
+Vivaldi
+Vladimir Script
+Webdings
+Wingdings
+Wingdings 2
+Wingdings 3
+Yu Gothic
+Yu Gothic U

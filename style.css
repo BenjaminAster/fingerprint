@@ -1,17 +1,25 @@
 
 :root {
 	font-family: system-ui, sans-serif;
+	overflow-wrap: break-word;
+	line-height: 1.5;
+	-webkit-tap-highlight-color: transparent;
+
+	color: var(--color);
+	background-color: var(--background);
+
 	color-scheme: dark;
 	--key-color: mediumSpringGreen;
-	-webkit-text-size-adjust: none;
-	text-size-adjust: none;
-	-webkit-tap-highlight-color: transparent;
+	--color: #eee;
+	--background: black;
 }
 
 @media (prefers-color-scheme: light) {
 	:root {
 		color-scheme: light;
 		--key-color: green;
+		--color: black;
+		--background: white;
 	}
 }
 
@@ -59,6 +67,57 @@ dd	> :is(dl, ul, ol) {
 
 dl > div > :is(dt, dd) {
 	display: inline;
+}
+
+#accent-color::before {
+	content: "";
+	display: inline-block;
+	--size: 1.3ex;
+	block-size: var(--size);
+	inline-size: var(--size);
+	/* aspect-ratio: 1; */
+	background: var(--color, transparent);
+	border-radius: .1em;
+	margin-inline: .1em .3em;
+	border: 1px solid currentColor;
+}
+
+.compass-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	inline-size: fit-content;
+}
+
+.compass-container #compass {
+	--degrees: 0;
+	--needle-height: 8rem;
+	--needle-width: 1rem;
+	rotate: calc(var(--degrees) * 1deg);
+	block-size: calc(var(--needle-height) + 2rem);
+	aspect-ratio: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #8882;
+	background-clip: padding-box;
+	border-radius: 50%;
+	border: 5px solid #8885;
+	margin-block: .5rem;
+}
+
+.compass-container #compass::before {
+	content: "";
+	border-block-end: calc(var(--needle-height) / 2) solid red;
+	border-inline: calc(var(--needle-width) / 2) solid transparent;
+}
+
+.compass-container #compass::after {
+	content: "";
+	border-block-start: calc(var(--needle-height) / 2) solid CanvasText;
+	border-inline: calc(var(--needle-width) / 2) solid transparent;
+	opacity: .7;
 }
 
 .orientation-and-motion > div {

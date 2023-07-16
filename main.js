@@ -1,7 +1,8 @@
 
-// / <reference types="better-typescript" />
+
+/// <reference types="better-typescript" />
 /// <reference types="@webgpu/types" />
-/// <reference path="../new-javascript/index.d.ts" />
+// / <reference path="../new-javascript/index.d.ts" />
 /// <reference path="../better-ts/index.d.ts" />
 
 // navigator.serviceWorker.register("./service-worker.js", { scope: "./" });
@@ -26,47 +27,151 @@ const yesNo = (/** @type {boolean} */ boolean) => (
 	boolean == null ? undefined : (boolean ? "yes" : "no")
 );
 
-let browserEngine = $("#browser-engine").textContent = (() => {
-	if (window.chrome || Intl.v8BreakIterator) return "Blink";
-	if (window.CSSMozDocumentRule) return "Gecko";
-	if (CSS.supports("-webkit-nbsp-mode: normal")) return "WebKit";
-	return "unknown";
-})();
-
 let sharedInfo = {
 	gpu: "",
 	gpuVendor: "",
+	browserEngine: $("#browser-engine").textContent = (() => {
+		if (window.chrome || Intl.v8BreakIterator) return "Blink";
+		if (window.CSSMozDocumentRule || CSS.supports("(-moz-window-dragging: default)")) return "Gecko";
+		if (CSS.supports("(-webkit-nbsp-mode: normal)") || window.ApplePaySession) return "WebKit";
+		if (CSS.supports("(color: -libweb-palette-base)")) return "LibWeb";
+		if (window.webdriverCallback || window.webdriverTimeout) return "Servo";
+		return "unknown";
+	})(),
+	cameras: 0,
+	microphones: 0,
+	speakers: 0,
+	accentColor: (() => {
+		const temp = document.createElement("div");
+		temp.style.color = "AccentColor";
+		temp.style.position = "absolute";
+		temp.style.pointerEvents = "none";
+		temp.style.opacity = "0";
+		document.body.append(temp);
+		const rgb = window.getComputedStyle?.(temp)?.color;
+		const match = rgb?.match(/rgba?\((?<red>\d+),? (?<green>\d+),? (?<blue>\d+)(((, )|( \/ ))(?<alpha>\d+))?\)/);
+		if (!match) return;
+		const hex = ("#"
+			+ (+match.groups.red).toString(16).toUpperCase().padStart(2, "0")
+			+ (+match.groups.green).toString(16).toUpperCase().padStart(2, "0")
+			+ (+match.groups.blue).toString(16).toUpperCase().padStart(2, "0")
+			+ (match.groups.alpha ? (+match.groups.alpha).toString(16).toUpperCase().padStart(2, "0") : "")
+		);
+		temp.remove();
+		$("#accent-color").textContent = hex;
+		$("#accent-color").style.setProperty("--color", rgb);
+		return hex;
+	})(),
+	browser: "",
 };
 
 {
+	$("#user-agent-string").textContent = navigator.userAgent;
+
+	{
+		const canvas = document.createElement("canvas");
+		const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+		const rendererInfo = gl?.getExtension?.("WEBGL_debug_renderer_info");
+		let gpu = gl?.getParameter?.(rendererInfo?.UNMASKED_RENDERER_WEBGL);
+		gpu ||= gl?.getParameter?.(gl?.RENDERER);
+		let vendor = gl?.getParameter?.(rendererInfo?.UNMASKED_VENDOR_WEBGL);
+		vendor ||= gl?.getParameter?.(gl?.VENDOR);
+		$("#graphics-card").textContent = gpu;
+		$("#graphics-card-vendor").textContent = vendor;
+		sharedInfo.gpu = gpu;
+		sharedInfo.gpuVendor = vendor;
+	}
+
 	(async () => {
-		$("#user-agent-string").textContent = navigator.userAgent;
 		{
-			$("#browser").textContent = await (async () => {
-				if (browserEngine === "Blink") {
+			const update = async () => {
+				let cameras = 0;
+				let microphones = 0;
+				let speakers = 0;
+				for (const { kind } of (await navigator.mediaDevices?.enumerateDevices?.()) ?? []) {
+					if (kind === "videoinput") cameras++;
+					else if (kind === "audioinput") microphones++;
+					else if (kind === "audiooutput") speakers++;
+				}
+				$("#cameras").textContent = (sharedInfo.cameras = cameras).toString();
+				$("#microphones").textContent = (sharedInfo.microphones = microphones).toString();
+				$("#speakers").textContent = (sharedInfo.speakers = speakers).toString();
+			}
+			navigator.mediaDevices?.addEventListener?.("devicechange", update);
+			await update();
+		}
+
+		{
+			$("#browser").textContent = sharedInfo.browser = await (async () => {
+				if (sharedInfo.browserEngine === "Blink") {
+					if (CSS.supports("selector(::-ms-reveal)")) return "Microsoft Edge";
 					if (await navigator.brave?.isBrave?.()) return "Brave";
-					if (!window.IdleDetector) return "Microsoft Edge";
+					if (window.g_opr) return "Opera";
+					if (window.ulaa) return "Ulaa";
+					if (window.News && window.QuickAccess) return "Samsung Internet";
+					if (window.BrowserAutofill && window.EmailInterface && window.LoginDetection) return "DuckDuckGo";
+					if (await window.ImageDecoder?.isTypeSupported?.("image/jxl")) return "Thorium";
+					// Vivaldi? (probably not detectable)
 					return "Google Chrome";
-				} else if (browserEngine === "Gecko") {
-					if (navigator.plugins.length === 0) return "Tor";
-					if (
-						window.innerWidth % 100 === 0 && window.innerHeight % 100 === 0
-						&&
-						!new Intl.DateTimeFormat().resolvedOptions().timeZone.includes("/")
-						&&
-						document.createElement("canvas").getContext("webgl").getParameter(WebGLRenderingContext.prototype.RENDERER) === "Mozilla"
-					) {
-						return "Tor or Mullvad Browser";
+				} else if (sharedInfo.browserEngine === "Gecko") {
+					if (Intl.DateTimeFormat && (new Intl.DateTimeFormat())?.resolvedOptions?.()?.timeZone === "UTC") {
+						if (window.innerWidth % 100 === 0 && window.innerHeight % 100 === 0) {
+							if (sharedInfo.cameras === 0 && sharedInfo.microphones === 0 && sharedInfo.speakers === 0) {
+								return "Tor";
+							} else {
+								return "Mullvad Browser";
+							}
+						} else if (navigator.doNotTrack === "1") {
+							return "LibreWolf";
+						}
+						// Qwant?
 					}
 					return "Firefox";
-				} else if (browserEngine === "WebKit") {
-					return "Safari / Epiphany";
+				} else if (sharedInfo.browserEngine === "WebKit") {
+					if (!window.ApplePaySession) return "Epiphany";
+					return "Safari";
+				} else if (sharedInfo.browserEngine === "LibWeb") {
+					return "Ladybird";
+				} else if (sharedInfo.browserEngine === "Servo") {
+					return "Servo";
 				} else {
 					return "unknown";
 				}
 			})();
 		}
 
+		if (["Tor", "Mullvad Browser"].includes(sharedInfo.browser)) {
+			if (sharedInfo.gpu === "Mozilla" && sharedInfo.gpuVendor === "Mozilla") {
+				$("#tor-security-level").textContent = "standard";
+			} else if (sharedInfo.gpu === undefined && sharedInfo.gpuVendor === undefined) {
+				$("#tor-security-level").textContent = "safer";
+			}
+		} else if (sharedInfo.browser === "Brave") {
+			if (/^[a-zA-Z0-9]{8}$/.test(sharedInfo.gpu) && /^[a-zA-Z0-9]{8}$/.test(sharedInfo.gpuVendor)) {
+				$("#brave-fingerprinting-protection").textContent = "aggressive";
+				return;
+			}
+
+			{
+				const canvas = new OffscreenCanvas(4, 4);
+				const context = canvas.getContext("2d", { alpha: false }, undefined);
+				context.fillStyle = "white";
+				context.fillRect(0, 0, canvas.width, canvas.height);
+				const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
+
+				for (const pixel of data) {
+					if (pixel !== 0xFF) {
+						$("#brave-fingerprinting-protection").textContent = "standard";
+						return;
+					}
+				}
+			}
+
+			$("#brave-fingerprinting-protection").textContent = "none";
+		}
+	})();
+
+	(async () => {
 		{
 			{
 				const fragment = $("#client-hint-brands > template").content;
@@ -150,20 +255,6 @@ let sharedInfo = {
 	$("#device-memory").textContent = navigator.deviceMemory && `${navigator.deviceMemory} GB`;
 
 	{
-		const canvas = document.createElement("canvas");
-		const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
-		const rendererInfo = gl?.getExtension?.("WEBGL_debug_renderer_info");
-		let gpu = gl?.getParameter?.(rendererInfo?.UNMASKED_RENDERER_WEBGL);
-		gpu ||= gl?.getParameter?.(gl?.RENDERER);
-		let vendor = gl?.getParameter?.(rendererInfo?.UNMASKED_VENDOR_WEBGL);
-		vendor ||= gl?.getParameter?.(gl?.VENDOR);
-		$("#graphics-card").textContent = gpu;
-		$("#graphics-card-vendor").textContent = vendor;
-		sharedInfo.gpu = gpu;
-		sharedInfo.gpuVendor = vendor;
-	}
-
-	{
 		const array = new Uint16Array(1);
 		array[0] = 1;
 		$("#endianness").textContent = `${new Uint8Array(array.buffer)[0] ? "little" : "big"}-endian`;
@@ -181,24 +272,6 @@ let sharedInfo = {
 		$("#immersive-ar-supported").textContent = yesNo(await navigator.xr?.isSessionSupported?.("immersive-ar"));
 	})();
 
-	{
-		const update = async () => {
-			let cameras = 0;
-			let microphones = 0;
-			let speakers = 0;
-			for (const { kind } of (await navigator.mediaDevices?.enumerateDevices?.()) ?? []) {
-				if (kind === "videoinput") cameras++;
-				else if (kind === "audioinput") microphones++;
-				else if (kind === "audiooutput") speakers++;
-			}
-			$("#cameras").textContent = cameras.toString();
-			$("#microphones").textContent = microphones.toString();
-			$("#speakers").textContent = speakers.toString();
-		}
-		update();
-		navigator.mediaDevices?.addEventListener?.("devicechange", update);
-	}
-
 	(async () => {
 		const adapter = await navigator.gpu?.requestAdapter?.();
 		const info = await adapter?.requestAdapterInfo?.();
@@ -211,6 +284,8 @@ let sharedInfo = {
 }
 
 {
+	$("#javascript-enabled").textContent = yesNo(true);
+
 	{
 		const update = () => {
 			$("#language").textContent = navigator.language;
@@ -225,12 +300,13 @@ let sharedInfo = {
 		{
 			const update = () => {
 				dateTimeInfo = new Intl.DateTimeFormat().resolvedOptions();
+				$("#date-time-locale").textContent = dateTimeInfo.locale;
+				$("#calendar").textContent = dateTimeInfo.calendar;
 				$("#time-zone").textContent = `${dateTimeInfo.timeZone} (${new Intl.DateTimeFormat("en-US", {
 					fractionalSecondDigits: 1,
 					timeZoneName: "long",
-				}).format(new Date()).slice(2)})`;
-				$("#date-time-locale").textContent = dateTimeInfo.locale;
-				$("#calendar").textContent = dateTimeInfo.calendar;
+					hour12: false,
+				}).format(new Date()).match(/^[^ ]* (?<timeZone>.*)$/)?.groups.timeZone})`;
 			};
 			update();
 			window.addEventListener("timezonechange", () => setTimeout(update));
@@ -261,9 +337,9 @@ let sharedInfo = {
 
 	(async () => {
 		$("#incognito").textContent = yesNo(await (async () => {
-			if (browserEngine === "Blink") {
+			if (sharedInfo.browserEngine === "Blink") {
 				return (await navigator.storage?.estimate?.())?.quota < performance.memory?.jsHeapSizeLimit
-			} else if (browserEngine === "WebKit") {
+			} else if (sharedInfo.browserEngine === "WebKit") {
 				const name = crypto.randomUUID?.() || Math.random().toString();
 				try {
 					const request = window.indexedDB?.open?.(name);
@@ -287,7 +363,7 @@ let sharedInfo = {
 				} catch {
 					return false;
 				}
-			} else if (browserEngine === "Gecko") {
+			} else if (sharedInfo.browserEngine === "Gecko") {
 				const name = crypto.randomUUID?.() || Math.random().toString();
 				try {
 					const request = window.indexedDB?.open?.(name);
@@ -377,32 +453,6 @@ let sharedInfo = {
 	}
 
 	(async () => {
-		if (!await navigator.brave?.isBrave?.()) return;
-
-		if (/^[a-zA-Z0-9]{8}$/.test(sharedInfo.gpu) && /^[a-zA-Z0-9]{8}$/.test(sharedInfo.gpuVendor)) {
-			$("#brave-fingerprinting-protection").textContent = "aggressive";
-			return;
-		}
-
-		{
-			const canvas = new OffscreenCanvas(4, 4);
-			const context = canvas.getContext("2d", { alpha: false }, undefined);
-			context.fillStyle = "white";
-			context.fillRect(0, 0, canvas.width, canvas.height);
-			const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
-
-			for (const pixel of data) {
-				if (pixel !== 0xFF) {
-					$("#brave-fingerprinting-protection").textContent = "standard";
-					return;
-				}
-			}
-		}
-
-		$("#brave-fingerprinting-protection").textContent = "none";
-	})();
-
-	(async () => {
 		const fragment = $("#keyboard-layout-map > template").content;
 		for (const [code, key] of [...(await navigator.keyboard?.getLayoutMap?.() ?? [])]) {
 			const clone = fragment.cloneNode(true);
@@ -438,10 +488,8 @@ let sharedInfo = {
 		mediaMatch?.addEventListener?.("change", update);
 	}
 
-	$("#device-pixel-ratio").textContent = round(window.devicePixelRatio, 10).toString();
-
 	{
-		let prevTime = document.timeline.currentTime;
+		let prevTime = /** @type {number} */ (document.timeline?.currentTime);
 		const element = $("#frame-rate");
 
 		const frame = (/** @type {number} */ time) => {
@@ -531,6 +579,8 @@ let sharedInfo = {
 
 	{
 		const update = () => {
+			$("#device-pixel-ratio").textContent = round(window.devicePixelRatio, 7).toString();
+
 			$("#inner-width").textContent = window.innerWidth?.toString();
 			$("#inner-height").textContent = window.innerHeight?.toString();
 			$("#outer-width").textContent = window.outerWidth?.toString();
@@ -680,14 +730,19 @@ let sharedInfo = {
 	})();
 
 	(async () => {
-		if (!window.AmbientLightSensor) return;
-		const sensor = new AmbientLightSensor({ frequency: 10 });
-		const update = () => {
-			$("#ambient-light").textContent = round(sensor?.illuminance, 5).toString();
-		};
-		sensor?.addEventListener?.("reading", update);
-		sensor?.start?.();
-		update();
+		if (window.AmbientLightSensor) {
+			const sensor = new AmbientLightSensor({ frequency: 10 });
+			const update = () => {
+				$("#ambient-light").textContent = round(sensor?.illuminance, 5).toString();
+			};
+			sensor?.addEventListener?.("reading", update);
+			sensor?.start?.();
+			update();
+		} else if ("ondevicelight" in window) {
+			window.addEventListener("devicelight", ({ value }) => {
+				$("#ambient-light").textContent = round(value, 5).toString();
+			});
+		}
 	})();
 
 	(async () => {
@@ -712,6 +767,45 @@ let sharedInfo = {
 			})();
 		}
 	})();
+
+	(async () => {
+		const worker = new Worker(new URL("./recursion-stack-worker.js", import.meta.url || location.href));
+		worker.addEventListener("message", ({ data }) => {
+			if (data.type === "send-recursion-stack-size") {
+				$("#recursion-stack-size").textContent = data.stackSize.toString();
+			}
+		});
+		worker.postMessage({ type: "measure-recursion-stack-size" });
+	})();
+
+	(async () => {
+		let isWatching = false;
+
+		const watchPosition = () => {
+			console.log("wp");
+			isWatching = true;
+			navigator.geolocation.watchPosition(({ coords: { latitude, longitude } }) => {
+				$("#geolocation").textContent = `${latitude}, ${longitude}`;
+				$("a#geolocation-google-maps-link").href = `https://www.google.com/maps/place/${latitude},+${longitude}`;
+				$("a#geolocation-qwant-maps-link").href = `https://www.qwant.com/maps/place/latlon:${latitude}:${longitude}`;
+			}, null, { enableHighAccuracy: true });
+		}
+
+		const permissionStatus = await navigator.permissions?.query?.({ name: "geolocation" });
+		const permissionUpdate = () => {
+			$("#geolocation-no-permission").hidden = permissionStatus?.state === "granted";
+			$("#geolocation-has-permission").hidden = permissionStatus?.state !== "granted";
+			if (permissionStatus?.state === "granted") {
+				if (!isWatching) watchPosition();
+			} else {
+				isWatching = false;
+			}
+		};
+		permissionUpdate();
+		permissionStatus?.addEventListener?.("change", permissionUpdate);
+
+		$("#geolocation-no-permission button").addEventListener("click", watchPosition);
+	})();
 }
 
 {
@@ -732,44 +826,48 @@ let sharedInfo = {
 	}
 
 	window.addEventListener("deviceorientationabsolute", (event) => {
-		$("#absolute-device-orientation-alpha > dd").textContent = event.alpha?.toFixed(1);
-		$("#absolute-device-orientation-alpha").style.setProperty("--value", event.alpha);
-		$("#absolute-device-orientation-beta > dd").textContent = event.beta?.toFixed(1);
-		$("#absolute-device-orientation-beta").style.setProperty("--value", event.beta);
-		$("#absolute-device-orientation-gamma > dd").textContent = event.gamma?.toFixed(1);
-		$("#absolute-device-orientation-gamma").style.setProperty("--value", event.gamma);
+		if (event.alpha == null) return;
+		$("#compass-degrees").textContent = `${event.alpha?.toFixed(1)}°`;
+		$("#compass").style.setProperty("--degrees", event.alpha);
 	});
 
 	window.addEventListener("deviceorientation", (event) => {
-		$("#device-orientation-alpha > dd").textContent = event.alpha?.toFixed(1);
+		if (event.alpha == null) return;
+		$("#device-orientation-alpha > dd").textContent = `${event.alpha?.toFixed(1)}°`;
 		$("#device-orientation-alpha").style.setProperty("--value", event.alpha);
-		$("#device-orientation-beta > dd").textContent = event.beta?.toFixed(1);
+		$("#device-orientation-beta > dd").textContent = `${event.beta?.toFixed(1)}°`;
 		$("#device-orientation-beta").style.setProperty("--value", event.beta);
-		$("#device-orientation-gamma > dd").textContent = event.gamma?.toFixed(1);
+		$("#device-orientation-gamma > dd").textContent = `${event.gamma?.toFixed(1)}°`;
 		$("#device-orientation-gamma").style.setProperty("--value", event.gamma);
 	});
 
 	window.addEventListener("devicemotion", (event) => {
-		$("#rotation-rate-alpha > dd").textContent = event.rotationRate?.alpha?.toFixed(1);
-		$("#rotation-rate-alpha").style.setProperty("--value", event.rotationRate?.alpha);
-		$("#rotation-rate-beta > dd").textContent = event.rotationRate?.beta?.toFixed(1);
-		$("#rotation-rate-beta").style.setProperty("--value", event.rotationRate?.beta);
-		$("#rotation-rate-gamma > dd").textContent = event.rotationRate?.gamma?.toFixed(1);
-		$("#rotation-rate-gamma").style.setProperty("--value", event.rotationRate?.gamma);
+		if (event.rotationRate?.alpha != null) {
+			$("#rotation-rate-alpha > dd").textContent = event.rotationRate?.alpha?.toFixed(1);
+			$("#rotation-rate-alpha").style.setProperty("--value", event.rotationRate?.alpha);
+			$("#rotation-rate-beta > dd").textContent = event.rotationRate?.beta?.toFixed(1);
+			$("#rotation-rate-beta").style.setProperty("--value", event.rotationRate?.beta);
+			$("#rotation-rate-gamma > dd").textContent = event.rotationRate?.gamma?.toFixed(1);
+			$("#rotation-rate-gamma").style.setProperty("--value", event.rotationRate?.gamma);
+		}
 
-		$("#acceleration-x > dd").textContent = event.acceleration?.x?.toFixed(1);
-		$("#acceleration-x").style.setProperty("--value", event.acceleration?.x);
-		$("#acceleration-y > dd").textContent = event.acceleration?.y?.toFixed(1);
-		$("#acceleration-y").style.setProperty("--value", event.acceleration?.y);
-		$("#acceleration-z > dd").textContent = event.acceleration?.z?.toFixed(1);
-		$("#acceleration-z").style.setProperty("--value", event.acceleration?.z);
+		if (event.acceleration?.x != null) {
+			$("#acceleration-x > dd").textContent = event.acceleration?.x?.toFixed(1);
+			$("#acceleration-x").style.setProperty("--value", event.acceleration?.x);
+			$("#acceleration-y > dd").textContent = event.acceleration?.y?.toFixed(1);
+			$("#acceleration-y").style.setProperty("--value", event.acceleration?.y);
+			$("#acceleration-z > dd").textContent = event.acceleration?.z?.toFixed(1);
+			$("#acceleration-z").style.setProperty("--value", event.acceleration?.z);
+		}
 
-		$("#acceleration-including-gravity-x > dd").textContent = event.accelerationIncludingGravity?.x?.toFixed(1);
-		$("#acceleration-including-gravity-x").style.setProperty("--value", event.accelerationIncludingGravity?.x);
-		$("#acceleration-including-gravity-y > dd").textContent = event.accelerationIncludingGravity?.y?.toFixed(1);
-		$("#acceleration-including-gravity-y").style.setProperty("--value", event.accelerationIncludingGravity?.y);
-		$("#acceleration-including-gravity-z > dd").textContent = event.accelerationIncludingGravity?.z?.toFixed(1);
-		$("#acceleration-including-gravity-z").style.setProperty("--value", event.accelerationIncludingGravity?.z);
+		if (event.accelerationIncludingGravity?.x != null) {
+			$("#acceleration-including-gravity-x > dd").textContent = event.accelerationIncludingGravity?.x?.toFixed(1);
+			$("#acceleration-including-gravity-x").style.setProperty("--value", event.accelerationIncludingGravity?.x);
+			$("#acceleration-including-gravity-y > dd").textContent = event.accelerationIncludingGravity?.y?.toFixed(1);
+			$("#acceleration-including-gravity-y").style.setProperty("--value", event.accelerationIncludingGravity?.y);
+			$("#acceleration-including-gravity-z > dd").textContent = event.accelerationIncludingGravity?.z?.toFixed(1);
+			$("#acceleration-including-gravity-z").style.setProperty("--value", event.accelerationIncludingGravity?.z);
+		}
 	});
 };
 

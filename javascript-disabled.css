@@ -1,0 +1,10 @@
+
+#javascript-enabled-false {
+	display: unset;
+}
+
+@-moz-document url-prefix() {
+	#tor-security-level-safest {
+		display: unset;
+	}
+}

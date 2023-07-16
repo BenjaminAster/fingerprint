@@ -1,5 +1,5 @@
-Abadi MT Condensed
 ABeeZee
+Abadi MT Condensed
 Abel
 Abhaya Libre
 Abril Fatface
@@ -23,9 +23,9 @@ Aldhabi
 Aldrich
 Alef
 Alegreya
+Alegreya SC
 Alegreya Sans
 Alegreya Sans SC
-Alegreya SC
 Alex Brush
 Alfa Slab One
 Algerian
@@ -49,6 +49,7 @@ American Uncial
 Amethysta
 Amiko
 Amiri
+Amiri Quran
 Amita
 Anaheim
 Andada
@@ -189,6 +190,7 @@ Berkshire Swash
 Berlin Sans FB
 Berlin Sans FB Bold
 Berlin Sans FB Demi Bold
+Bernard MT
 Bernard MT Condensed
 Bevan
 BiauKai
@@ -223,6 +225,7 @@ Bodoni MT Condensed Bold
 Bodoni MT Condensed Bold Italic
 Bodoni MT Condensed Italic
 Bodoni MT Italic
+Bodoni MT Poster
 Bodoni MT Poster Compressed
 Bodoni Ornaments
 Bokor
@@ -278,6 +281,7 @@ Cabin Sketch
 Caesar Dressing
 Cagliostro
 Cairo
+Caladea
 Calibri
 Calibri Bold
 Calibri Bold Italic
@@ -313,10 +317,13 @@ Cantora One
 Capriola
 Cardo
 Cariadings
+Carlito
 Carme
 Carrois Gothic
 Carrois Gothic SC
 Carter One
+Cascadia Code
+Cascadia Mono
 Castellar
 Catamaran
 Caudex
@@ -382,6 +389,8 @@ Comic Sans MS Bold
 Comic Sans MS Bold Italic
 Comic Sans MS Italic
 Coming Soon
+Computer Modern
+Computer Modern Serif
 Concert One
 Condiment
 Consolas
@@ -446,6 +455,10 @@ Curlz MT
 Cutive
 Cutive Mono
 Cyrillic
+DB LCD Temp
+DFKai-SB
+DIN Alternate
+DIN Condensed
 Damascus
 Damion
 Dancing Script
@@ -453,13 +466,17 @@ Dangrek
 DaunPenh
 David
 David Bold
+David CLM
+David CLM BoldItalic
+David CLM MediumItalic
 David Libre
 Dawning of a New Day
 Days One
-DB LCD Temp
 DecoType Naskh
+DejaVu Math TeX Gyre
 DejaVu Mono
 DejaVu Sans
+DejaVu Sans Mono
 DejaVu Serif
 Dekko
 Delius
@@ -471,7 +488,6 @@ Desdemona
 Devanagari
 Devanagari Sangam MN
 Devonshire
-DFKai-SB
 Dhurjati
 Didact Gothic
 Didot
@@ -479,8 +495,6 @@ DilleniaUPC
 DilleniaUPC Bold
 DilleniaUPC Bold Italic
 DilleniaUPC Italic
-DIN Alternate
-DIN Condensed
 Dingbats
 Diplomata
 Diplomata SC
@@ -498,11 +512,12 @@ Dr Sugiyama
 Droid Sans
 Droid Sans Mono
 Droid Serif
+Dubai
 Duru Sans
 Dynalight
+EB Garamond
 Eagle Lake
 Eater
-EB Garamond
 Ebrima
 Ebrima Bold
 Eckmann
@@ -518,6 +533,7 @@ Elsie
 Elsie Swash Caps
 Emblema One
 Emilys Candy
+EmojiOne Color
 Encode Sans
 Encode Sans Condensed
 Encode Sans Expanded
@@ -585,7 +601,12 @@ Footlight MT Light
 Forte
 Forum
 Francois One
+Frank Ruehl CLM
+Frank Ruehl CLM BoldOblique
+Frank Ruehl CLM MediumOblique
+Frank Ruhl Hofshi
 Frank Ruhl Libre
+FrankRuehl
 Franklin Gothic
 Franklin Gothic Book
 Franklin Gothic Book Italic
@@ -597,14 +618,13 @@ Franklin Gothic Heavy Italic
 Franklin Gothic Medium
 Franklin Gothic Medium Cond
 Franklin Gothic Medium Italic
-FrankRuehl
 Freckle Face
 Fredericka the Great
 Fredoka One
-Freehand
 FreeMono
 FreeSans
 FreeSerif
+Freehand
 FreesiaUPC
 FreesiaUPC Bold
 FreesiaUPC Bold Italic
@@ -616,6 +636,8 @@ Frijole
 Fruktur
 Fugaz One
 Futura
+GFS Didot
+GFS Neohellenic
 Gabriela
 Gabriola
 Gadget
@@ -646,8 +668,6 @@ Georgia Ref
 Geostar
 Geostar Fill
 Germania One
-GFS Didot
-GFS Neohellenic
 Gidugu
 Gigi
 Gilda Display
@@ -667,9 +687,11 @@ Glass Antiqua
 Glegoo
 Gloria Hallelujah
 Gloucester
+Gloucester MT
 Gloucester MT Extra Condensed
 Goblin One
 Gochi Hand
+Google Sans
 Gorditas
 Goudy Bookletter 1911
 Goudy Old Style
@@ -704,6 +726,7 @@ Handlee
 Hangangche
 Hanuman
 Happy Monkey
+Harlow Solid
 Harlow Solid Italic
 Harmattan
 Harrington
@@ -735,21 +758,25 @@ Hiragino Mincho Pro
 Hiragino Sans
 Hoefler Text
 Holidays MT
+HoloLens MDL2 Assets
 Holtwood One SC
 Homemade Apple
 Homenaje
-Iceberg
-Iceland
-IM Fell Double Pica
-IM Fell Double Pica SC
 IM Fell DW Pica
 IM Fell DW Pica SC
+IM Fell Double Pica
+IM Fell Double Pica SC
 IM Fell English
 IM Fell English SC
 IM Fell French Canon
 IM Fell French Canon SC
 IM Fell Great Primer
 IM Fell Great Primer SC
+ITC Bodoni 72 Bold
+ITC Bodoni 72 Italic
+ITF Devanagari
+Iceberg
+Iceland
 Impact
 Imprima
 Imprint MT Shadow
@@ -762,19 +789,16 @@ Inika
 Ink Free
 Inknut Antiqua
 Iowan Old Style
-Irish Grover
 IrisUPC
 IrisUPC Bold
 IrisUPC Bold Italic
 IrisUPC Italic
+Irish Grover
 Iskoola Pota
 Iskoola Pota Bold
 Istok Web
 Italiana
 Italianno
-ITC Bodoni 72 Bold
-ITC Bodoni 72 Italic
-ITF Devanagari
 Itim
 Jacques Francois
 Jacques Francois Shadow
@@ -802,10 +826,12 @@ Junge
 Jura
 Just Another Hand
 Just Me Again Down Here
+KacstBook
+KacstOffice
 Kadwa
 Kai
-Kailasa
 KaiTi
+Kailasa
 Kalam
 Kalinga
 Kalinga Bold
@@ -862,6 +888,7 @@ Kumar One
 Kumar One Outline
 Kunstler Script
 Kurale
+LCD
 La Belle Aurore
 Laila
 Lakki Reddy
@@ -872,10 +899,12 @@ Lao UI Bold
 LaoSangamMN
 LastResort
 Lateef
+Latin Modern
+Latin Modern Math
+LatinModernMath-Regular
 Latha
 Latha Bold
 Lato
-LCD
 League Script
 Leckerli One
 Ledger
@@ -889,6 +918,9 @@ Lemon
 Lemonada
 Levenim MT
 Levenim MT Bold
+LiHei Pro
+LiSong Pro
+Liberation
 Liberation Mono
 Liberation Sans
 Liberation Serif
@@ -901,7 +933,6 @@ Libre Barcode 39 Text
 Libre Baskerville
 Libre Franklin
 Life Savers
-LiHei Pro
 Lilita One
 Lily Script One
 LilyUPC
@@ -910,7 +941,9 @@ LilyUPC Bold Italic
 LilyUPC Italic
 Limelight
 Linden Hill
-LiSong Pro
+Linux Biolinum G
+Linux Libertine Display G
+Linux Libertine G
 Lobster
 Lobster Two
 Londrina Outline
@@ -957,6 +990,20 @@ Luckiest Guy
 Luminari
 Lusitana
 Lustria
+MS Gothic
+MS LineDraw
+MS Mincho
+MS Outlook
+MS PGothic
+MS PMincho
+MS Reference
+MS Reference Sans Serif
+MS Reference Specialty
+MS Sans Serif
+MS Serif
+MS UI Gothic
+MT Extra
+MV Boli
 Macondo
 Macondo Swash Caps
 Mada
@@ -1057,8 +1104,11 @@ MingLiU_HKSCS-ExtB
 Minion Web
 Miniver
 Miriam
+Miriam CLM
 Miriam Fixed
 Miriam Libre
+Miriam Mono CLM
+Miriam Mono CLM BoldOblique
 Mirza
 Miss Fajardose
 Mistral
@@ -1096,29 +1146,21 @@ Mr Dafoe
 Mr De Haviland
 Mrs Saint Delafield
 Mrs Sheppards
-MS Gothic
-MS LineDraw
-MS Mincho
-MS Outlook
-MS PGothic
-MS PMincho
-MS Reference
-MS Reference Sans Serif
-MS Reference Specialty
-MS Sans Serif
-MS Serif
-MS UI Gothic
 Mshtakan
-MT Extra
 Mukta
 Mukta Mahee
 Mukta Malar
 Mukta Vaani
 Muli
-MV Boli
 Myanmar Text
 Myanmar Text Bold
 Mystery Quest
+NISC GB18030
+NSimSun
+NTR
+Nachlieli CLM
+Nachlieli CLM BoldOblique
+Nachlieli CLM LightOblique
 Nadeem
 Narkisim
 Naskh Arabic
@@ -1156,7 +1198,6 @@ Nimbus Sans L Regular Italic
 Nirmala UI
 Nirmala UI Bold
 Nirmala UI Semilight
-NISC GB18030
 Nixie One
 Nobile
 Nokora
@@ -1165,8 +1206,23 @@ Nosifer
 Noteworthy
 Nothing You Could Do
 Noticia Text
+Noto Kufi Arabic
+Noto Mono
+Noto Naskh Arabic
+Noto Naskh Arabic UI
 Noto Sans
+Noto Sans Arabic
+Noto Sans Arabic UI
+Noto Sans Armenian
+Noto Sans Georgian
+Noto Sans Hebrew
+Noto Sans Lao
+Noto Sans Lisu
 Noto Serif
+Noto Serif Armenian
+Noto Serif Georgian
+Noto Serif Hebrew
+Noto Serif Lao
 Nova Cut
 Nova Flat
 Nova Mono
@@ -1175,12 +1231,11 @@ Nova Round
 Nova Script
 Nova Slim
 Nova Square
-NSimSun
-NTR
 Numans
 Nunito
 Nunito Sans
 Nyala
+OCR A
 OCR A Extended
 OCR-B-Digits
 OCRB
@@ -1194,6 +1249,7 @@ Oleo Script Swash Caps
 Onyx
 Open Sans
 Open Sans Condensed
+OpenSymbol
 Optima
 Oranienbaum
 Orbitron
@@ -1211,6 +1267,15 @@ Overpass Mono
 Ovo
 Oxygen
 Oxygen Mono
+PC Myungjo
+PMingLiU
+PMingLiU-ExtB
+PT Mono
+PT Sans
+PT Sans Caption
+PT Sans Narrow
+PT Serif
+PT Serif Caption
 Pacifico
 Padauk
 Palace Script MT
@@ -1238,7 +1303,6 @@ Pattaya
 Patua One
 Pavanam
 Paytone One
-PC Myungjo
 Peddana
 Peignot Medium
 Pepita MT
@@ -1271,8 +1335,6 @@ Playball
 Playbill
 Playfair Display
 Playfair Display SC
-PMingLiU
-PMingLiU-ExtB
 Podkova
 Poiret One
 Poller One
@@ -1294,12 +1356,6 @@ Prociono
 Prompt
 Prosto One
 Proza Libre
-PT Mono
-PT Sans
-PT Sans Caption
-PT Sans Narrow
-PT Serif
-PT Serif Caption
 Puritan
 Purple Purse
 Quando
@@ -1315,6 +1371,7 @@ Raavi
 Raavi Bold
 Racing Sans One
 Radley
+Rage
 Rage Italic
 Rajdhani
 Rakkas
@@ -1376,6 +1433,10 @@ Ruslan Display
 Russo One
 Ruthie
 Rye
+ST FangSong
+ST Heiti
+ST Kaiti
+ST Song
 Sacramento
 Sahitya
 Sail
@@ -1406,12 +1467,14 @@ Scheherazade
 Schoolbell
 Scope One
 Script
+Script MT
 Script MT Bold
 Seaweed Script
 Secular One
 Sedgwick Ave
 Sedgwick Ave Display
 Segoe Chess
+Segoe Fluent Icons
 Segoe MDL2 Assets
 Segoe Print
 Segoe Print Bold
@@ -1433,6 +1496,9 @@ Segoe UI Semibold Italic
 Segoe UI Semilight
 Segoe UI Semilight Italic
 Segoe UI Symbol
+Segoe UI Variable Display
+Segoe UI Variable Small
+Segoe UI Variable Text
 Segoe WP
 Seoul
 Sevillana
@@ -1455,19 +1521,19 @@ Shruti
 Shruti Bold
 Siemreap
 Sigmar One
+SignPainter
 Signika
 Signika Negative
-SignPainter
 Signs MT
 Silom
 SimHei
+SimSun
+SimSun-ExtB
 Simonetta
 Simplified Arabic
 Simplified Arabic Bold
 Simplified Arabic Fixed
 Simplified Chinese
-SimSun
-SimSun-ExtB
 Sinhala Sangam MN
 Sintony
 Sirin Stencil
@@ -1538,10 +1604,6 @@ Sports MT
 Squada One
 Sree Krushnadevaraya
 Sriracha
-ST FangSong
-ST Heiti
-ST Kaiti
-ST Song
 Stalemate
 Stalinist One
 Standard Symbols L
@@ -1656,20 +1718,6 @@ Tw Cen MT Condensed Medium
 Tw Cen MT Italic
 Tw Cen MT Medium
 Tw Cen MT Medium Italic
-Ubuntu
-Ubuntu Condensed
-Ubuntu Mono
-Ultra
-Uncial Antiqua
-Underdog
-Unica One
-UnifrakturCook
-UnifrakturMaguntia
-Unkempt
-Unlock
-Unna
-Urdu Typesetting
-Urdu Typesetting Bold
 URW Antiqua T Regular Condensed
 URW Bookman L Demi Bold
 URW Bookman L Light
@@ -1684,6 +1732,20 @@ URW Palladio L
 URW Palladio L Bold
 URW Palladio L Italic
 URW Palladio L Roman
+Ubuntu
+Ubuntu Condensed
+Ubuntu Mono
+Ultra
+Uncial Antiqua
+Underdog
+Unica One
+UnifrakturCook
+UnifrakturMaguntia
+Unkempt
+Unlock
+Unna
+Urdu Typesetting
+Urdu Typesetting Bold
 Utopia
 Utopia Bold
 Utopia Italic
@@ -1692,6 +1754,7 @@ Utsaah
 Utsaah Bold
 Utsaah Bold Italic
 Utsaah Italic
+VT323
 Vacation MT
 Vampiro One
 Vani
@@ -1721,7 +1784,6 @@ Vollkorn
 Voltaire
 Vrinda
 Vrinda Bold
-VT323
 Waiting for the Sunrise
 Wallpoet
 Walter Turncoat
@@ -1743,10 +1805,12 @@ Yellowtail
 Yeseva One
 Yesteryear
 Yrsa
+Yu Gothic
 Yu Gothic Bold
 Yu Gothic Light
 Yu Gothic Medium
 Yu Gothic Regular
+Yu Gothic UI
 Yu Gothic UI Bold
 Yu Gothic UI Light
 Yu Gothic UI Regular

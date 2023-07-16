@@ -112,6 +112,8 @@
 - WebRTC local IP address leakage?
 - device font size?
 - WebAuthn? (e.g. isUserVerifyingPlatformAuthenticatorAvailable)
+- system accent color? (https://drafts.csswg.org/css-color-4/#valdef-system-color-accentcolor)
+- zoom level?
 
 
 ## New "privacy preserving" "cookie alternatives" & other stuff from Google & others:
@@ -136,7 +138,7 @@
 - [Shared Storage](https://wicg.github.io/shared-storage/)
 - [Private Aggregation](https://patcg-individual-drafts.github.io/private-aggregation-api/)
 - [Topics](https://patcg-individual-drafts.github.io/topics/)
-- [Interoperable Private Attribution End to End Protocol](https://github.com/patcg-individual-drafts/ipa/blob/main/IPA-End-to-End.md) (see also: [Chromium design doc](https://docs.google.com/document/d/1LBv-Sg84jyq3Em474kgEbOaJ1GY6XsQKj6TlAlnIkyw/view))
+- [Interoperable Private Attribution End to End Protocol](https://github.com/patcg-individual-drafts/ipa/blob/main/IPA-End-to-End.md) (see also: [Chromium design doc](https://docs.google.com/document/d/1LBv-Sg84jyq3Em474kgEbOaJ1GY6XsQKj6TlAlnIkyw/preview))
 - [Cookies Having Independent Partitioned State (CHIPS)](https://github.com/privacycg/CHIPS) (see also: [unofficial Chromium version](https://dcthetall.github.io/CHIPS-spec/draft-cutler-httpbis-partitioned-cookies.html))
 - [Federated Credential Management API](https://fedidcg.github.io/FedCM/)
 - [Client-Side Storage Partitioning](https://github.com/privacycg/storage-partitioning)
@@ -146,4 +148,17 @@
 - [Storage Access](https://privacycg.github.io/storage-access/)
 - [Private Click Measurement](https://privacycg.github.io/private-click-measurement/)
 - [Global Privacy Control (GPC)](https://privacycg.github.io/gpc-spec/)
+- [Standardizing Security Semantics of Cross-Site Cookies](https://github.com/DCtheTall/standardizing-cross-site-cookie-semantics/blob/main/README.md)
 - <s>[Federated Learning of Cohorts (FLoC)](https://github.com/WICG/floc)</s> (archived, replaced by [Topics API](https://patcg-individual-drafts.github.io/topics/))
+
+## Documents from W3C and others:
+- [Improving the web without third-party cookies](https://w3ctag.github.io/web-without-3p-cookies/)
+- [Privacy Principles](https://w3ctag.github.io/privacy-principles/)
+- [Ethical Web Principles](https://w3ctag.github.io/ethical-web-principles/)
+- [Web Platform Design Principles](https://w3ctag.github.io/design-principles/)
+- [Self-Review Questionnaire: Security and Privacy](https://w3ctag.github.io/security-questionnaire/)
+- [Observations on Private Browsing Modes](https://w3ctag.github.io/private-browsing-modes/)
+- [Private Mode Browsing](https://w3ctag.github.io/private-mode/)
+- [Mitigating Browser Fingerprinting in Web Specifications](https://w3c.github.io/fingerprinting-guidance/)
+- [Navigational-Tracking Mitigations](https://privacycg.github.io/nav-tracking-mitigations/)
+- [Privacy Considerations for Web Protocols](https://w3c.github.io/privacy-considerations/)
