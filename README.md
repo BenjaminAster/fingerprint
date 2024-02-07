@@ -50,10 +50,10 @@
 - performance navigation type
 - ambient light sensor
 - compassneedscalibration event fired
-- new Intl.DateTimeFormat().resolvedOptions() + new Date().getTimezoneOffset() (+ timezoneupdate event)
+- new Intl.DateTimeFormat().resolvedOptions() + new Date().getTimezoneOffset() (+ timezonechange event)
 - date & time format
 - date in milliseconds
-- Audio (new AudioContext(.createAnalyser)), https://webaudio.github.io/web-audio-api/#priv-sec, https://github.com/WebAudio/web-audio-api/issues/2061
+- Audio (new AudioContext()(.createAnalyser)), https://webaudio.github.io/web-audio-api/#priv-sec, https://github.com/WebAudio/web-audio-api/issues/2061
 - supported audio types (new Audio().canPlayType())
 - supported video types (document.createElement("video").canPlayType())
 - supported media recorder types (MediaRecorder.isTypeSupported()), https://w3c.github.io/mediacapture-record/#fingerprinting
@@ -93,6 +93,10 @@
 - "desktop site" mode enabled
 - brave fingerprinting strictness
 - WebGL2RenderingContext.prototype.getSupportedExtensions()
+- GPUAdapter::{isCompatibilityMode, isFallbackAdapter, limits, requestAdapterInfo()}
+- navigator.pdfViewerEnabled
+- external.getHostEnvironmentValue() (Edge)
+- PublicKeyCredential.{isUserVerifyingPlatformAuthenticatorAvailable, isPasskeyPlatformAuthenticatorAvailable}()
 
 - installed browser extensions
 - Turtledove/Fledge?
@@ -114,11 +118,14 @@
 - WebAuthn? (e.g. isUserVerifyingPlatformAuthenticatorAvailable)
 - system accent color? (https://drafts.csswg.org/css-color-4/#valdef-system-color-accentcolor)
 - zoom level?
+- WebGPU timestamp queries (https://gpuweb.github.io/gpuweb/#timestamp)?
+- x86(_64) detection (https://github.com/fingerprintjs/fingerprintjs/blob/master/src/sources/architecture.ts)
 
 
-## New "privacy preserving" "cookie alternatives" & other stuff from Google & others:
+## New stuff from Google & others:
 - [Private State Token](https://wicg.github.io/trust-token-api/)
 - [Attribution Reporting](https://wicg.github.io/attribution-reporting-api/)
+- [Cross App and Web Attribution Measurement](https://github.com/WICG/attribution-reporting-api/blob/main/app_to_web.md)
 - [Protected Audience](https://wicg.github.io/turtledove/)
 - [Secure Private Advertising Remotely Run On Webserver (SPARROW)](https://github.com/WICG/sparrow)
 - [Prefetch](https://wicg.github.io/nav-speculation/prefetch)
@@ -138,7 +145,7 @@
 - [Shared Storage](https://wicg.github.io/shared-storage/)
 - [Private Aggregation](https://patcg-individual-drafts.github.io/private-aggregation-api/)
 - [Topics](https://patcg-individual-drafts.github.io/topics/)
-- [Interoperable Private Attribution End to End Protocol](https://github.com/patcg-individual-drafts/ipa/blob/main/IPA-End-to-End.md) (see also: [Chromium design doc](https://docs.google.com/document/d/1LBv-Sg84jyq3Em474kgEbOaJ1GY6XsQKj6TlAlnIkyw/preview))
+- [Interoperable Private Attribution End to End Protocol](https://github.com/patcg-individual-drafts/ipa/blob/main/IPA-End-to-End.md) (see also: [Chromium design doc 1](https://docs.google.com/document/d/1LBv-Sg84jyq3Em474kgEbOaJ1GY6XsQKj6TlAlnIkyw/preview), [2](https://docs.google.com/document/d/1KpdSKD8-Rn0bWPTu4UtK54ks0yv2j22pA5SrAD9av4s/preview))
 - [Cookies Having Independent Partitioned State (CHIPS)](https://github.com/privacycg/CHIPS) (see also: [unofficial Chromium version](https://dcthetall.github.io/CHIPS-spec/draft-cutler-httpbis-partitioned-cookies.html))
 - [Federated Credential Management API](https://fedidcg.github.io/FedCM/)
 - [Client-Side Storage Partitioning](https://github.com/privacycg/storage-partitioning)
@@ -148,8 +155,13 @@
 - [Storage Access](https://privacycg.github.io/storage-access/)
 - [Private Click Measurement](https://privacycg.github.io/private-click-measurement/)
 - [Global Privacy Control (GPC)](https://privacycg.github.io/gpc-spec/)
+- [Tracking Preference Expression (DNT)](https://w3c.github.io/dnt/drafts/tracking-dnt.html)
 - [Standardizing Security Semantics of Cross-Site Cookies](https://github.com/DCtheTall/standardizing-cross-site-cookie-semantics/blob/main/README.md)
+- [The IP Geolocation HTTP Client Hint](https://tfpauly.github.io/privacy-proxy/draft-pauly-httpbis-geoip-hint.html)
+- [Private Access Tokens](https://github.com/tfpauly/privacy-proxy/blob/main/Retired/draft-private-access-tokens.md)
+- [The Privacy Pass HTTP Authentication Scheme](https://www.ietf.org/id/draft-ietf-privacypass-auth-scheme-12.html)
 - <s>[Federated Learning of Cohorts (FLoC)](https://github.com/WICG/floc)</s> (archived, replaced by [Topics API](https://patcg-individual-drafts.github.io/topics/))
+- <s>[Web Environment Integrity](https://rupertbenwiser.github.io/Web-Environment-Integrity/)</s>
 
 ## Documents from W3C and others:
 - [Improving the web without third-party cookies](https://w3ctag.github.io/web-without-3p-cookies/)
@@ -162,3 +174,4 @@
 - [Mitigating Browser Fingerprinting in Web Specifications](https://w3c.github.io/fingerprinting-guidance/)
 - [Navigational-Tracking Mitigations](https://privacycg.github.io/nav-tracking-mitigations/)
 - [Privacy Considerations for Web Protocols](https://w3c.github.io/privacy-considerations/)
+- [A Potential Privacy Model for the Web](https://github.com/michaelkleber/privacy-model)

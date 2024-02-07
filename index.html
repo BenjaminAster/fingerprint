@@ -3,18 +3,18 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
 	<meta name="robots" content="all" />
 	<meta name="description" content="A website that shows you fingerprinting vectors of your browser." />
 
-	<!-- <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" /> -->
-	<!-- <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" /> -->
+	<!-- Chromium Origin Trial "Compute Pressure" for benjaminaster.com: -->
+	<meta http-equiv="origin-trial" content="AkWCkcqQozlSdXGdvezrr3ReyvLBFhfbJBKd5RZ4t8Wc6zTmndweBkOXW0D1lzrVleLvypfoc1svOoj/MabQLgYAAABdeyJvcmlnaW4iOiJodHRwczovL2JlbmphbWluYXN0ZXIuY29tOjQ0MyIsImZlYXR1cmUiOiJDb21wdXRlUHJlc3N1cmVfdjIiLCJleHBpcnkiOjE3MTY5NDA3OTl9" />
 
 	<title>Fingerprint</title>
+	<base href="./" />
+	<link rel="icon" href="./assets/icon.svg" type="image/svg+xml" sizes="any" />
+	<link rel="icon" href="./assets/icon.png" type="image/png" sizes="512x512" />
 	<link rel="manifest" href="./app.webmanifest" />
-
-	<link rel="icon" href="./assets/icon.svg" type="image/svg+xml" sizes="512x512" />
-	<link rel="icon" href="./assets/icon.png" type="image/png" sizes="any" />
 
 	<link rel="stylesheet" href="./style.css" />
 
@@ -157,6 +157,11 @@
 					<dt>Total allocated JS heap size:</dt>
 					<dd id="total-js-heap-size"></dd>
 				</div>
+
+				<div>
+					<dt>Built-in PDF viewer:</dt>
+					<dd id="pdf-viewer-enabled"></dd>
+				</div>
 			</dl>
 		</section>
 
@@ -259,6 +264,21 @@
 				</div>
 
 				<div>
+					<dt>Audio base latency:</dt>
+					<dd id="audio-base-latency"></dd>
+				</div>
+
+				<div>
+					<dt>Audio output latency:</dt>
+					<dd id="audio-output-latency"></dd>
+				</div>
+
+				<div>
+					<dt>Audio sample rate:</dt>
+					<dd id="audio-sample-rate"></dd>
+				</div>
+
+				<div>
 					<dt>WebGPU: architecture:</dt>
 					<dd id="webgpu-architecture"></dd>
 				</div>
@@ -281,6 +301,26 @@
 				<div>
 					<dt>WebGPU: vendor:</dt>
 					<dd id="webgpu-vendor"></dd>
+				</div>
+
+				<div>
+					<dt>Microsoft Edge: OS architecture:</dt>
+					<dd id="edge-os-architecture"></dd>
+				</div>
+
+				<div>
+					<dt>Microsoft Edge: OS build number:</dt>
+					<dd id="edge-os-build"></dd>
+				</div>
+
+				<div>
+					<dt>Microsoft Edge: OS mode:</dt>
+					<dd id="edge-os-mode"></dd>
+				</div>
+
+				<div>
+					<dt>Microsoft Edge: OS Stock Keeping Unit:</dt>
+					<dd id="edge-os-sku"></dd>
 				</div>
 			</dl>
 		</section>
@@ -599,6 +639,11 @@
 					<dt>Site loading type:</dt>
 					<dd id="navigation-type"></dd>
 				</div>
+
+				<div>
+					<dt>Site first visited:</dt>
+					<dd id="first-visited"></dd>
+				</div>
 			</dl>
 		</section>
 
@@ -688,7 +733,7 @@
 				</div>
 
 				<div>
-					<dt>Device is charging:</dt>
+					<dt>Charging:</dt>
 					<dd id="charging"></dd>
 				</div>
 

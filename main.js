@@ -1,11 +1,6 @@
 
 
-/// <reference types="better-typescript" />
-/// <reference types="@webgpu/types" />
-// / <reference path="../new-javascript/index.d.ts" />
-/// <reference path="../better-ts/index.d.ts" />
-
-// navigator.serviceWorker.register("./service-worker.js", { scope: "./" });
+navigator.serviceWorker?.register("./service-worker.js");
 
 const $ = document.querySelector.bind(document);
 
@@ -26,6 +21,13 @@ const hasPermission = async (/** @type {Parameters<Permissions["query"]>[0]["nam
 const yesNo = (/** @type {boolean} */ boolean) => (
 	boolean == null ? undefined : (boolean ? "yes" : "no")
 );
+
+const bytesToHumanReadable = (/** @type {number} */ bytes) => {
+	const numberFormat = new Intl.NumberFormat("en-US", {});
+	const byteSizeNames = ["bytes", "KiB", "MiB", "GiB", "TiB", "PiB"];
+	const magnitude = Math.floor(Math.log2(bytes) / 10);
+	return `${numberFormat.format(bytes)} bytes (${round(bytes / (1024 ** magnitude), 2)} ${byteSizeNames[magnitude]})`;
+};
 
 let sharedInfo = {
 	gpu: "",
@@ -104,14 +106,14 @@ let sharedInfo = {
 		{
 			$("#browser").textContent = sharedInfo.browser = await (async () => {
 				if (sharedInfo.browserEngine === "Blink") {
-					if (CSS.supports("selector(::-ms-reveal)")) return "Microsoft Edge";
+					if (await navigator.duckduckgo?.isDuckDuckGo?.() || (window.BrowserAutofill && window.EmailInterface && window.LoginDetection)) return "DuckDuckGo";
 					if (await navigator.brave?.isBrave?.()) return "Brave";
-					if (window.g_opr) return "Opera";
+					if (window.g_opr || window.isOpera) return "Opera";
 					if (window.ulaa) return "Ulaa";
+					if (CSS.supports("selector(::-ms-reveal) or selector(::-ms-clear)")) return "Microsoft Edge";
 					if (window.News && window.QuickAccess) return "Samsung Internet";
-					if (window.BrowserAutofill && window.EmailInterface && window.LoginDetection) return "DuckDuckGo";
+					if (window.DataTransfer?.prototype.SetURLAndTitle) return "Vivaldi";
 					if (await window.ImageDecoder?.isTypeSupported?.("image/jxl")) return "Thorium";
-					// Vivaldi? (probably not detectable)
 					return "Google Chrome";
 				} else if (sharedInfo.browserEngine === "Gecko") {
 					if (Intl.DateTimeFormat && (new Intl.DateTimeFormat())?.resolvedOptions?.()?.timeZone === "UTC") {
@@ -124,7 +126,9 @@ let sharedInfo = {
 						} else if (navigator.doNotTrack === "1") {
 							return "LibreWolf";
 						}
-						// Qwant?
+					}
+					if (!navigator.pdfViewerEnabled) {
+						return "Firefox (probably Qwant)"
 					}
 					return "Firefox";
 				} else if (sharedInfo.browserEngine === "WebKit") {
@@ -211,9 +215,18 @@ let sharedInfo = {
 			$("#client-hint-architecture").textContent = highEntropyValues?.architecture;
 			$("#client-hint-bitness").textContent = highEntropyValues?.bitness;
 			$("#client-hint-model").textContent = highEntropyValues?.model;
-			$("#client-hint-platform-version").textContent = highEntropyValues?.platformVersion;
 			$("#client-hint-ua-full-version").textContent = highEntropyValues?.uaFullVersion;
 			$("#client-hint-wow64").textContent = yesNo(highEntropyValues?.wow64);
+			const platformVersion = highEntropyValues?.platformVersion;
+			if (platformVersion) {
+				const versionNumber = +platformVersion.split(".")[0];
+				let extraInfo = "";
+				if (navigator.userAgentData?.platform === "Windows") {
+					const platformVersionName = (await import("./windows-data.js")).platformVersions[versionNumber];
+					if (platformVersionName) extraInfo = ` (${platformVersionName})`;
+				}
+				$("#client-hint-platform-version").textContent = platformVersion + extraInfo;
+			}
 		}
 	})();
 
@@ -244,13 +257,15 @@ let sharedInfo = {
 
 	if (performance.memory) {
 		const numberFormat = new Intl.NumberFormat("en-US", {});
-		$("#js-heap-size-limit").textContent = `${numberFormat.format(performance.memory?.jsHeapSizeLimit)} bytes`;
-		$("#total-js-heap-size").textContent = `${numberFormat.format(performance.memory?.totalJSHeapSize)} bytes`;
+		$("#js-heap-size-limit").textContent = bytesToHumanReadable(performance.memory?.jsHeapSizeLimit)
+		$("#total-js-heap-size").textContent = bytesToHumanReadable(performance.memory?.totalJSHeapSize)
 	}
+
+	$("#pdf-viewer-enabled").textContent = yesNo(navigator.pdfViewerEnabled);
 }
 
 {
-	$("#platform").textContent = navigator.platform;
+	$("#platform").textContent = navigator.platform + (navigator.oscpu ? ` (${navigator.oscpu})` : "");
 	$("#hardware-concurrency").textContent = navigator.hardwareConcurrency?.toString();
 	$("#device-memory").textContent = navigator.deviceMemory && `${navigator.deviceMemory} GB`;
 
@@ -273,14 +288,41 @@ let sharedInfo = {
 	})();
 
 	(async () => {
+		await new Promise((resolve) => document.onclick = resolve);
+		const context = window.AudioContext && new AudioContext();
+		await new Promise((resolve) => self.setTimeout(resolve, 100));
+		$("#audio-base-latency").textContent = context?.baseLatency?.toString();
+		$("#audio-output-latency").textContent = context?.outputLatency?.toString();
+		$("#audio-sample-rate").textContent = context?.sampleRate?.toString();
+	})();
+
+	(async () => {
 		const adapter = await navigator.gpu?.requestAdapter?.();
 		const info = await adapter?.requestAdapterInfo?.();
-		$("#webgpu-architecture").textContent = info?.architecture?.toString();
-		$("#webgpu-description").textContent = info?.description?.toString();
-		$("#webgpu-device").textContent = info?.device?.toString();
-		$("#webgpu-driver").textContent = info?.driver?.toString();
-		$("#webgpu-vendor").textContent = info?.vendor?.toString();
+		$("#webgpu-architecture").textContent = info?.architecture;
+		$("#webgpu-description").textContent = info?.description;
+		$("#webgpu-device").textContent = info?.device;
+		$("#webgpu-driver").textContent = info?.driver;
+		$("#webgpu-vendor").textContent = info?.vendor;
 	})();
+
+	if (window.external?.getHostEnvironmentValue) {
+		(async () => {
+			const { SKUs, buildNumbers } = await import("./windows-data.js");
+			$("#edge-os-architecture").textContent = JSON.parse(external.getHostEnvironmentValue("os-architecture"))?.["os-architecture"];
+			const buildNumber = JSON.parse(external.getHostEnvironmentValue("os-build"))?.["os-build"];
+			const buildInfo = buildNumbers[buildNumber];
+			$("#edge-os-build").textContent = `${buildNumber}: ${buildInfo?.name} (released ${buildInfo?.released})`;
+			$("#edge-os-mode").textContent = {
+				// https://learn.microsoft.com/en-us/windows/win32/api/wldp/ne-wldp-wldp_windows_lockdown_mode
+				0: "Unlocked",
+				1: "Trial (S mode)",
+				2: "Locked (S mode)",
+			}[+JSON.parse(external.getHostEnvironmentValue("os-mode"))?.["os-mode"]];
+			const skuNumber = +JSON.parse(external.getHostEnvironmentValue("os-sku"))?.["os-sku"];
+			$("#edge-os-sku").textContent = `${SKUs[skuNumber]} (0x${skuNumber?.toString(16).toUpperCase().padStart(2, "0")})`;
+		})();
+	}
 }
 
 {
@@ -489,12 +531,19 @@ let sharedInfo = {
 	}
 
 	{
-		let prevTime = /** @type {number} */ (document.timeline?.currentTime);
+		// let prevTime = /** @type {number} */ (document.timeline?.currentTime);
 		const element = $("#frame-rate");
+		let frameCount = 0;
+
+		window.setInterval(() => {
+			element.textContent = frameCount.toString();
+			frameCount = 0;
+		}, 1_000)
 
 		const frame = (/** @type {number} */ time) => {
-			element.textContent = (1000 / (time - prevTime)).toFixed(0);
-			prevTime = time;
+			// element.textContent = (1000 / (time - prevTime)).toFixed(0);
+			// prevTime = time;
+			frameCount++;
 			window.requestAnimationFrame(frame);
 		}
 
@@ -627,6 +676,17 @@ let sharedInfo = {
 	$("#history-length").textContent = history.length?.toString();
 
 	$("#navigation-type").textContent = performance.getEntriesByType?.("navigation")?.[0]?.type;
+
+	(async () => {
+		const storageKey = `${location.pathname}:first-visited`;
+		const dateString = window.localStorage?.getItem(storageKey);
+		let date = new Date(dateString);
+		if (!dateString) {
+			date = new Date();
+			window.localStorage?.setItem(storageKey, date.toISOString());
+		}
+		$("#first-visited").textContent = date.toLocaleString("en", { hour12: false, dateStyle: "full", timeStyle: "long" });
+	})();
 }
 
 {
@@ -717,13 +777,10 @@ let sharedInfo = {
 	})();
 
 	(async () => {
-		const numberFormat = new Intl.NumberFormat("en-US", {});
-		const byteSizeNames = ["bytes", "KiB", "MiB", "GiB", "TiB", "PiB"];
 		const update = async () => {
 			const { quota } = (await navigator.storage?.estimate?.()) ?? {};
 			if (!quota) return;
-			const magnitude = Math.floor(Math.log2(quota) / 10);
-			$("#storage-quota-estimate").textContent = `${numberFormat.format(quota)} bytes (${round(quota / (1024 ** magnitude), 2)} ${byteSizeNames[magnitude]})`;
+			$("#storage-quota-estimate").textContent = bytesToHumanReadable(quota);
 		};
 		update();
 		navigator.storage?.addEventListener?.("quotachange", update);
@@ -746,7 +803,7 @@ let sharedInfo = {
 	})();
 
 	(async () => {
-		if (!window.PressureObserver) return;
+		if (!window.PressureObserver || new URLSearchParams(location.search).has("nopressureobserver")) return;
 		const changeCallback = (/** @type {PressureRecord[]} */ changes) => {
 			for (const change of changes) {
 				if (change.source === "cpu") {
