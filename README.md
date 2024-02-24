@@ -1,3 +1,10 @@
+
+# Fingerprint
+
+Eine einfache Webseite, die Informationen über deinen Browser, Betriebssystem, Gerät, etc. anzeigt. Ein Projekt für meine [VWA](https://de.wikipedia.org/wiki/Vorwissenschaftliche_Arbeit).
+
+
+<!--
 - user agent string
 - user agent data
 - vendor
@@ -175,3 +182,4 @@
 - [Navigational-Tracking Mitigations](https://privacycg.github.io/nav-tracking-mitigations/)
 - [Privacy Considerations for Web Protocols](https://w3c.github.io/privacy-considerations/)
 - [A Potential Privacy Model for the Web](https://github.com/michaelkleber/privacy-model)
+-->

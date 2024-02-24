@@ -1,6 +1,5 @@
 
-
-navigator.serviceWorker?.register("./service-worker.js");
+import { keys as keyboardKeys } from "./keyboard.js";
 
 const $ = document.querySelector.bind(document);
 
@@ -51,13 +50,13 @@ let sharedInfo = {
 		temp.style.opacity = "0";
 		document.body.append(temp);
 		const rgb = window.getComputedStyle?.(temp)?.color;
-		const match = rgb?.match(/rgba?\((?<red>\d+),? (?<green>\d+),? (?<blue>\d+)(((, )|( \/ ))(?<alpha>\d+))?\)/);
-		if (!match) return;
+		const matchGroups = rgb?.match(/rgba?\((?<red>\d+),? (?<green>\d+),? (?<blue>\d+)(((, )|( \/ ))(?<alpha>\d+))?\)/)?.groups;
+		if (!matchGroups) return;
 		const hex = ("#"
-			+ (+match.groups.red).toString(16).toUpperCase().padStart(2, "0")
-			+ (+match.groups.green).toString(16).toUpperCase().padStart(2, "0")
-			+ (+match.groups.blue).toString(16).toUpperCase().padStart(2, "0")
-			+ (match.groups.alpha ? (+match.groups.alpha).toString(16).toUpperCase().padStart(2, "0") : "")
+			+ (+matchGroups.red).toString(16).toUpperCase().padStart(2, "0")
+			+ (+matchGroups.green).toString(16).toUpperCase().padStart(2, "0")
+			+ (+matchGroups.blue).toString(16).toUpperCase().padStart(2, "0")
+			+ (matchGroups.alpha ? (+matchGroups.alpha).toString(16).toUpperCase().padStart(2, "0") : "")
 		);
 		temp.remove();
 		$("#accent-color").textContent = hex;
@@ -117,7 +116,7 @@ let sharedInfo = {
 					return "Google Chrome";
 				} else if (sharedInfo.browserEngine === "Gecko") {
 					if (Intl.DateTimeFormat && (new Intl.DateTimeFormat())?.resolvedOptions?.()?.timeZone === "UTC") {
-						if (window.innerWidth % 100 === 0 && window.innerHeight % 100 === 0) {
+						if (window.innerWidth % 200 === 0 && window.innerHeight % 100 === 0) {
 							if (sharedInfo.cameras === 0 && sharedInfo.microphones === 0 && sharedInfo.speakers === 0) {
 								return "Tor";
 							} else {
@@ -163,8 +162,8 @@ let sharedInfo = {
 				context.fillRect(0, 0, canvas.width, canvas.height);
 				const data = context.getImageData(0, 0, canvas.width, canvas.height).data;
 
-				for (const pixel of data) {
-					if (pixel !== 0xFF) {
+				for (const pixelChannel of data) {
+					if (pixelChannel !== 0xFF) {
 						$("#brave-fingerprinting-protection").textContent = "standard";
 						return;
 					}
@@ -496,10 +495,22 @@ let sharedInfo = {
 
 	(async () => {
 		const fragment = $("#keyboard-layout-map > template").content;
-		for (const [code, key] of [...(await navigator.keyboard?.getLayoutMap?.() ?? [])]) {
+		const layoutMapList = await navigator.keyboard?.getLayoutMap?.();
+		if (!layoutMapList) return;
+		const layoutMap = Object.fromEntries(layoutMapList);
+		for (const keyInfo of keyboardKeys) {
 			const clone = fragment.cloneNode(true);
-			clone.querySelector(".code").textContent = code;
-			clone.querySelector(".key").textContent = key;
+			// clone.querySelector(".code").textContent = code;
+			// clone.querySelector(".key").textContent = key;
+			// const keyInfo = keys[code];
+			const key = layoutMap[keyInfo.code] || keyInfo.qwertyKey;
+			const keyElement = clone.querySelector(".keyboard-key");
+			keyElement.textContent = key;
+			keyElement.style.setProperty("--x", keyInfo.x);
+			keyElement.style.setProperty("--y", keyInfo.y);
+			if (keyInfo.width) keyElement.style.setProperty("--width", keyInfo.width);
+			if (keyInfo.height) keyElement.style.setProperty("--height", keyInfo.height);
+			// delete keys[code];
 			$("#keyboard-layout-map").append(clone);
 		}
 	})();
@@ -538,7 +549,7 @@ let sharedInfo = {
 		window.setInterval(() => {
 			element.textContent = frameCount.toString();
 			frameCount = 0;
-		}, 1_000)
+		}, 1000)
 
 		const frame = (/** @type {number} */ time) => {
 			// element.textContent = (1000 / (time - prevTime)).toFixed(0);
@@ -927,6 +938,52 @@ let sharedInfo = {
 		}
 	});
 };
+
+export const storage = new class {
+	_pathname = new URL("./", location.href).pathname;
+	get(/** @type {string} */ key) {
+		try {
+			return JSON.parse(localStorage.getItem(`${this._pathname}:${key}`));
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	};
+	set(/** @type {string} */ key, /** @type {any} */ value) {
+		localStorage.setItem(`${this._pathname}:${key}`, JSON.stringify(value));
+	};
+	remove(/** @type {string} */ key) {
+		localStorage.removeItem(`${this._pathname}:${key}`);
+	};
+};
+
+{
+	const button = document.querySelector("button#theme-switcher");
+
+	// color theme
+	const mediaMatch = window.matchMedia("(prefers-color-scheme: light)");
+	const themeInStorage = storage.get("color-theme") ?? "os-default";
+	let currentTheme = ((themeInStorage === "os-default" && mediaMatch.matches) || themeInStorage === "light") ? "light" : "dark";
+
+	const updateTheme = () => {
+		document.documentElement.dataset.theme = currentTheme === "light" ? "light" : "dark";
+		const themeColor = window.getComputedStyle(document.documentElement).backgroundColor.trim();
+		document.querySelector("meta[name=theme-color]").content = themeColor;
+	};
+	updateTheme();
+
+	button.addEventListener("click", async () => {
+		currentTheme = currentTheme === "dark" ? "light" : "dark";
+		storage.set("color-theme", ((currentTheme === "light") === mediaMatch.matches) ? "os-default" : currentTheme);
+		updateTheme();
+	});
+
+	mediaMatch.addEventListener("change", ({ matches }) => {
+		currentTheme = matches ? "light" : "dark";
+		storage.set("color-theme", "os-default");
+		updateTheme();
+	});
+}
 
 export { };
 

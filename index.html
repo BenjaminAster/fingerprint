@@ -1,34 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
 	<meta name="robots" content="all" />
 	<meta name="description" content="A website that shows you fingerprinting vectors of your browser." />
-
+	
 	<!-- Chromium Origin Trial "Compute Pressure" for benjaminaster.com: -->
 	<meta http-equiv="origin-trial" content="AkWCkcqQozlSdXGdvezrr3ReyvLBFhfbJBKd5RZ4t8Wc6zTmndweBkOXW0D1lzrVleLvypfoc1svOoj/MabQLgYAAABdeyJvcmlnaW4iOiJodHRwczovL2JlbmphbWluYXN0ZXIuY29tOjQ0MyIsImZlYXR1cmUiOiJDb21wdXRlUHJlc3N1cmVfdjIiLCJleHBpcnkiOjE3MTY5NDA3OTl9" />
-
+	
 	<title>Fingerprint</title>
 	<base href="./" />
 	<link rel="icon" href="./assets/icon.svg" type="image/svg+xml" sizes="any" />
 	<link rel="icon" href="./assets/icon.png" type="image/png" sizes="512x512" />
 	<link rel="manifest" href="./app.webmanifest" />
+	<meta name="theme-color" content="black" />
 
 	<link rel="stylesheet" href="./style.css" />
-
+	
 	<noscript>
 		<link rel="stylesheet" href="./javascript-disabled.css" />
 	</noscript>
 
 	<script type="module" src="./main.js"></script>
+	<link rel="modulepreload" href="./keyboard.js" />
 </head>
 
 <body>
 	<main>
 		<h1>Fingerprint</h1>
-		<p>See fingerprinting vectors of your browser.</p>
+		<p>Eine einfache Webseite, die Informationen über deinen Browser, Betriebssystem, Gerät, etc. anzeigt. Ein Projekt für meine <a href="https://de.wikipedia.org/wiki/Vorwissenschaftliche_Arbeit">VWA</a>.</p>
 		<section>
 			<h2>Browser</h2>
 			<dl>
@@ -166,7 +168,7 @@
 		</section>
 
 		<section>
-			<h2>Operating system & hardware:</h2>
+			<h2>Operating system & hardware</h2>
 			<dl>
 				<div>
 					<dt>Platform:</dt>
@@ -450,16 +452,22 @@
 				</div>
 
 				<div>
-					<dt>Keyboard layout map:</dt>
-					<dd>
-						<dl id="keyboard-layout-map">
+					<dt>Keyboard layout:</dt>
+					<dd class="keyboard-container">
+						<ul id="keyboard-layout-map">
+							<template>
+								<li class="keyboard-key"></li>
+							</template>
+						</ul>
+
+						<!-- <dl id="keyboard-layout-map">
 							<template>
 								<div>
 									<dt><span class="code"></span>:</dt>
 									<dd class="key"></dd>
 								</div>
 							</template>
-						</dl>
+						</dl> -->
 					</dd>
 				</div>
 
@@ -787,22 +795,20 @@
 						</span>
 					</dd>
 				</div>
-			</dl>
 
-			<button id="orientation-sensor-permission">request orientation sensor permission</button> <br />
-			<button id="motion-sensor-permission">request motion sensor permission</button>
-
-			<dl>
 				<div>
 					<dt>Compass:</dt>
 					<dd class="compass-container">
 						<div id="compass"></div>
 						<div id="compass-degrees"></div>
 					</dd>
+
+					<button id="orientation-sensor-permission">request orientation sensor permission</button>
+					<button id="motion-sensor-permission">request motion sensor permission</button>
 				</div>
 				<div>
 					<dt>Relative device orientation:</dt>
-					<dd>
+					<dd class="orientation-and-motion-container">
 						<dl class="orientation-and-motion">
 							<div class="rotation" id="device-orientation-alpha">
 								<dt>alpha:</dt>
@@ -821,7 +827,7 @@
 				</div>
 				<div>
 					<dt>Rotation rate (deg/s):</dt>
-					<dd>
+					<dd class="orientation-and-motion-container">
 						<dl class="orientation-and-motion">
 							<div class="rotation" id="rotation-rate-alpha">
 								<dt>alpha:</dt>
@@ -840,7 +846,7 @@
 				</div>
 				<div>
 					<dt>Acceleration (m/s²):</dt>
-					<dd>
+					<dd class="orientation-and-motion-container">
 						<dl class="orientation-and-motion">
 							<div class="acceleration" id="acceleration-x">
 								<dt>x:</dt>
@@ -859,7 +865,7 @@
 				</div>
 				<div>
 					<dt>Acceleration including gravity (m/s²):</dt>
-					<dd>
+					<dd class="orientation-and-motion-container">
 						<dl class="orientation-and-motion">
 							<div class="acceleration" id="acceleration-including-gravity-x">
 								<dt>x:</dt>
@@ -879,6 +885,10 @@
 			</dl>
 		</section>
 	</main>
+
+	<footer>
+		<button id="theme-switcher">Switch to <span><span class="dark-only">light</span><span class="light-only">dark</span></span> theme</button>
+	</footer>
 </body>
 
 </html>
